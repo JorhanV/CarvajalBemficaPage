@@ -1,0 +1,2109 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Carvajal Bemfica | Finanzas, datos y ERP</title>
+  <meta name="description"
+    content="Carvajal Bemfica Finance & Data Advisory. Validación ERP, Power BI, SQL, controles P2P y pruebas UAT/SIT desde Costa Rica para LATAM.">
+  <style>
+    :root {
+      --petroleum: #123E43;
+      --ink: #243638;
+      --muted: #5B6E6E;
+      --copper: #A45436;
+      --sand: #EFE7DB;
+      --paper: #fff;
+      --line: #D8D1C5;
+      --green: #23634b;
+      --red: #9e3936;
+      --radius: 14px
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 110px
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: #F8F4EC;
+      line-height: 1.65
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit
+    }
+
+    button,
+    a {
+      touch-action: manipulation
+    }
+
+    a {
+      color: inherit
+    }
+
+    button {
+      cursor: pointer
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--copper);
+      outline-offset: 4px
+    }
+
+    button:disabled {
+      cursor: default;
+      opacity: .6
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0
+    }
+
+    h1,
+    h2 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 400;
+      line-height: 1.12
+    }
+
+    h1 {
+      font-size: clamp(42px, 5.5vw, 74px);
+      letter-spacing: -2.5px
+    }
+
+    h2 {
+      font-size: clamp(32px, 3.5vw, 47px);
+      letter-spacing: -1px
+    }
+
+    h3 {
+      font-size: 19px;
+      line-height: 1.35
+    }
+
+    p+p {
+      margin-top: 14px
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 64px));
+      margin: auto
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--copper);
+      margin-bottom: 18px
+    }
+
+    .lead {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 650px
+    }
+
+    .section {
+      padding: 92px 0
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 50px;
+      align-items: end;
+      margin-bottom: 38px
+    }
+
+    .section-head>p {
+      max-width: 415px;
+      color: var(--muted)
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border-radius: 6px;
+      padding: 13px 21px;
+      border: 1px solid var(--petroleum);
+      background: var(--petroleum);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      min-height: 46px
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--petroleum);
+      border-color: #c3cbd4
+    }
+
+    .button.light {
+      background: var(--sand);
+      color: var(--petroleum);
+      border-color: var(--sand)
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .skip {
+      position: absolute;
+      left: 16px;
+      top: -100px;
+      background: white;
+      padding: 12px;
+      z-index: 9
+    }
+
+    .skip:focus {
+      top: 5px
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 9px;
+      background: #edf1f5;
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: .5px;
+      font-weight: 700
+    }
+
+    .badge.good {
+      background: #e6f1eb;
+      color: var(--green)
+    }
+
+    .badge.warn {
+      background: #f8efde;
+      color: #805619
+    }
+
+    .badge.bad {
+      background: #fae9e6;
+      color: var(--red)
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: rgba(248, 244, 236, .97);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .header-inner {
+      min-height: 89px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-decoration: none
+    }
+
+    .monogram {
+      font: 42px Georgia, serif;
+      letter-spacing: -7px;
+      padding-right: 8px;
+      line-height: 1;
+      color: var(--petroleum);
+      position: relative
+    }
+
+    .monogram:after {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: var(--copper);
+      position: absolute;
+      left: 27px;
+      top: 20px
+    }
+
+    .brand-name {
+      font-size: 14px;
+      letter-spacing: 2px;
+      display: block;
+      line-height: 1.4
+    }
+
+    .brand-sub {
+      display: block;
+      font-size: 8px;
+      letter-spacing: 2.3px;
+      margin-top: 5px
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 24px
+    }
+
+    .nav a {
+      font-size: 13px;
+      text-decoration: none
+    }
+
+    .nav a:hover {
+      color: var(--copper)
+    }
+
+    .nav .button {
+      color: white
+    }
+
+    .menu {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 8px 12px
+    }
+
+    .demo-strip {
+      background: var(--sand);
+      padding: 9px 0;
+      font-size: 11px;
+      text-align: center;
+      color: #6a5d43;
+      border-bottom: 1px solid #D8D1C5
+    }
+
+    .hero {
+      padding: 85px 0 72px;
+      background: radial-gradient(ellipse at 85% 20%, #DFE8DF 0, transparent 46%)
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.06fr 1fr;
+      gap: 65px;
+      align-items: center
+    }
+
+    .hero h1 em {
+      color: var(--copper);
+      font-style: normal
+    }
+
+    .hero .lead {
+      margin-top: 26px
+    }
+
+    .hero-note {
+      margin-top: 23px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap
+    }
+
+    .hero-note span {
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    .dashboard {
+      background: var(--petroleum);
+      color: white;
+      border-radius: var(--radius);
+      box-shadow: 0 25px 65px #123E431a;
+      overflow: hidden
+    }
+
+    .dashboard-top {
+      padding: 23px 27px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ffffff21;
+      align-items: center
+    }
+
+    .dashboard-top b {
+      font-size: 12px;
+      letter-spacing: 1px
+    }
+
+    .dashboard-top span {
+      font-size: 10px;
+      color: #CCD9D3
+    }
+
+    .dashboard-body {
+      padding: 28px
+    }
+
+    .dashboard-label {
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: #CCD9D3
+    }
+
+    .dashboard-number {
+      font: 46px Georgia, serif;
+      line-height: 1.2;
+      margin: 9px 0
+    }
+
+    .dashboard-caption {
+      font-size: 12px;
+      color: #CCD9D3
+    }
+
+    .dash-progress {
+      display: flex;
+      gap: 4px;
+      margin: 24px 0 12px
+    }
+
+    .dash-progress span {
+      height: 7px;
+      background: #7B9B8D;
+      border-radius: 2px
+    }
+
+    .dash-progress span:last-child {
+      background: #D19170
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 28px
+    }
+
+    .dash-cell {
+      background: #ffffff09;
+      padding: 17px;
+      border: 1px solid #ffffff16;
+      border-radius: 8px
+    }
+
+    .dash-cell strong {
+      display: block;
+      font: 27px Georgia, serif;
+      margin: 5px 0
+    }
+
+    .dashboard-bottom {
+      padding: 17px 27px;
+      background: #ffffff08;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #CCD9D3
+    }
+
+    .dashboard-bottom a {
+      color: #E5B69A
+    }
+
+    .trust {
+      padding: 27px 0;
+      border-block: 1px solid var(--line)
+    }
+
+    .trust-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      flex-wrap: wrap
+    }
+
+    .trust-title {
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    .trust-items {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px
+    }
+
+    .problems {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-top: 40px
+    }
+
+    .problem {
+      border-top: 2px solid var(--copper);
+      padding-top: 24px
+    }
+
+    .problem .number {
+      font: 15px Georgia, serif;
+      color: var(--copper);
+      margin-bottom: 15px
+    }
+
+    .problem h3 {
+      margin-bottom: 12px
+    }
+
+    .problem p {
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .services {
+      background: var(--sand)
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px
+    }
+
+    .service {
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border: 1px solid #D8D1C5;
+      border-radius: 10px;
+      padding: 29px
+    }
+
+    .service-icon {
+      font: 28px Georgia, serif;
+      color: var(--copper);
+      margin-bottom: 23px
+    }
+
+    .service p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 13px
+    }
+
+    .service ul {
+      padding-left: 18px;
+      margin: 20px 0;
+      font-size: 13px
+    }
+
+    .service details {
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+      margin-top: auto;
+      font-size: 13px
+    }
+
+    .service summary {
+      cursor: pointer;
+      color: var(--copper);
+      font-weight: 600
+    }
+
+    .service details p {
+      font-size: 12px
+    }
+
+    .service-foot {
+      margin-top: 23px;
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .method {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 26px;
+      margin-top: 40px
+    }
+
+    .method-step {
+      position: relative;
+      padding-top: 25px;
+      border-top: 1px solid var(--line)
+    }
+
+    .method-step:before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 0;
+      width: 9px;
+      height: 9px;
+      background: var(--copper);
+      border-radius: 50%
+    }
+
+    .method-step small {
+      color: var(--copper);
+      font-size: 11px;
+      letter-spacing: 1px
+    }
+
+    .method-step h3 {
+      margin: 12px 0
+    }
+
+    .method-step p {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .method-step .deliverable {
+      border-top: 1px solid var(--line);
+      margin-top: 20px;
+      padding-top: 15px;
+      font-size: 12px
+    }
+
+    .principle {
+      display: flex;
+      gap: 24px;
+      background: var(--sand);
+      padding: 24px 30px;
+      border-radius: 8px;
+      margin-top: 35px;
+      align-items: center
+    }
+
+    .principle strong {
+      white-space: nowrap;
+      font-size: 13px
+    }
+
+    .principle p {
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .demo-section {
+      background: #E8EDE5
+    }
+
+    .demo-shell {
+      background: white;
+      border: 1px solid #d6dde5;
+      border-radius: 12px;
+      overflow: hidden
+    }
+
+    .demo-toolbar {
+      padding: 22px 26px;
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .filters label {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    select {
+      border: 1px solid #cbd2d9;
+      border-radius: 5px;
+      background: white;
+      padding: 9px 12px;
+      color: var(--ink)
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 25px 26px
+    }
+
+    .metric {
+      border-right: 1px solid var(--line);
+      padding-right: 12px
+    }
+
+    .metric:last-child {
+      border: 0
+    }
+
+    .metric span {
+      display: block;
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    .metric strong {
+      display: block;
+      font: 28px Georgia, serif;
+      margin-top: 4px;
+      white-space: nowrap
+    }
+
+    .table-wrap {
+      overflow-x: auto
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 12px
+    }
+
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .5px;
+      background: #f6f8fa;
+      padding: 14px 20px;
+      white-space: nowrap
+    }
+
+    td {
+      padding: 15px 20px;
+      border-top: 1px solid #eef1f4
+    }
+
+    td.num,
+    th.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums
+    }
+
+    .row-link {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: var(--petroleum);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      font-size: 12px
+    }
+
+    .demo-bottom {
+      display: flex;
+      gap: 18px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 26px;
+      border-top: 1px solid var(--line);
+      flex-wrap: wrap
+    }
+
+    .demo-verdict {
+      font-size: 13px;
+      max-width: 590px
+    }
+
+    .demo-verdict p {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px
+    }
+
+    .demo-bottom .button {
+      padding: 10px 16px;
+      font-size: 12px
+    }
+
+    .demo-disclaimer {
+      margin-top: 17px;
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    dialog {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      max-width: 550px;
+      width: calc(100% - 35px);
+      padding: 30px;
+      color: var(--ink);
+      box-shadow: 0 30px 90px #0002
+    }
+
+    dialog::backdrop {
+      background: #123E4366
+    }
+
+    dialog h3 {
+      margin: 15px 0
+    }
+
+    dialog p {
+      font-size: 14px
+    }
+
+    dialog .button {
+      margin-top: 25px
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: center
+    }
+
+    .close {
+      border: 1px solid var(--line);
+      background: white;
+      border-radius: 5px;
+      width: 38px;
+      height: 38px
+    }
+
+    .who {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 70px
+    }
+
+    .who-card {
+      background: var(--petroleum);
+      color: white;
+      border-radius: 12px;
+      padding: 37px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 380px
+    }
+
+    .who-card .monogram {
+      color: #fff;
+      font-size: 82px;
+      letter-spacing: -12px
+    }
+
+    .who-card .monogram:after {
+      left: 54px;
+      top: 40px;
+      width: 8px;
+      height: 8px
+    }
+
+    .who-card h3 {
+      font-family: Georgia, serif;
+      font-size: 30px;
+      font-weight: 400;
+      margin-top: 50px
+    }
+
+    .who-card p {
+      font-size: 13px;
+      color: #CCD9D3
+    }
+
+    .who-content .lead {
+      margin: 23px 0
+    }
+
+    .who-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 30px
+    }
+
+    .who-list div {
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      font-size: 13px
+    }
+
+    .who-list b {
+      display: block;
+      margin-bottom: 6px
+    }
+
+    .who-list span {
+      color: var(--muted)
+    }
+
+    .diagnostic {
+      background: var(--sand)
+    }
+
+    .diag-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 65px;
+      align-items: start
+    }
+
+    .diag-copy p {
+      margin-top: 25px;
+      color: var(--muted)
+    }
+
+    .diag-copy ul {
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .form-panel {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid #e0ddd7
+    }
+
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 19px
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px
+    }
+
+    .field.full {
+      grid-column: 1/-1
+    }
+
+    .field label {
+      font-size: 12px;
+      font-weight: 600
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cad2da;
+      border-radius: 5px;
+      min-width: 0;
+      font-size: 14px;
+      background: white
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 120px
+    }
+
+    .form-panel .button {
+      margin-top: 22px
+    }
+
+    .result {
+      border-left: 3px solid var(--copper);
+      background: #F5EEE1;
+      padding: 20px;
+      margin-top: 24px
+    }
+
+    .result h3 {
+      font-size: 17px
+    }
+
+    .result p {
+      font-size: 13px;
+      margin-top: 10px
+    }
+
+    .result ul {
+      font-size: 12px;
+      padding-left: 20px
+    }
+
+    .result .actions {
+      margin-top: 15px
+    }
+
+    .result .button {
+      margin-top: 0;
+      font-size: 12px;
+      padding: 10px 13px
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 70px
+    }
+
+    .faq-list details {
+      border-bottom: 1px solid var(--line);
+      padding: 22px 0
+    }
+
+    .faq-list details:first-child {
+      padding-top: 0
+    }
+
+    .faq-list summary {
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600
+    }
+
+    .faq-list p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 14px
+    }
+
+    .contact-section {
+      background: var(--petroleum);
+      color: white
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 70px
+    }
+
+    .contact-section .lead {
+      color: #D8E1D8;
+      margin-top: 24px
+    }
+
+    .contact-details {
+      margin-top: 32px
+    }
+
+    .contact-details p {
+      font-size: 13px;
+      color: #D8E1D8
+    }
+
+    .contact-details a {
+      color: #E5B69A;
+      overflow-wrap: anywhere
+    }
+
+    .contact-section .form-panel {
+      color: var(--ink)
+    }
+
+    .contact-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 16px
+    }
+
+    footer {
+      padding: 30px 0;
+      background: #082F33;
+      color: #C6D4CE;
+      font-size: 11px
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 25px;
+      flex-wrap: wrap
+    }
+
+    .footer-inner a {
+      color: #E5B69A
+    }
+
+    .footer-name {
+      color: white;
+      letter-spacing: 1px
+    }
+
+    [hidden] {
+      display: none !important
+    }
+
+    @media(max-width:1000px) {
+      .wrap {
+        width: calc(100% - 40px)
+      }
+
+      .hero-grid {
+        gap: 35px
+      }
+
+      .nav {
+        gap: 16px
+      }
+
+      .nav a {
+        font-size: 12px
+      }
+
+      .brand-name {
+        font-size: 12px
+      }
+
+      .brand-sub {
+        font-size: 7px
+      }
+
+      .metrics {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .metric:nth-child(2) {
+        border: 0
+      }
+
+      .diag-grid,
+      .who,
+      .contact-grid,
+      .faq-grid {
+        gap: 40px
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    @media(max-width:760px) {
+      .wrap {
+        width: calc(100% - 36px)
+      }
+
+      .section {
+        padding: 58px 0
+      }
+
+      .hero {
+        padding: 48px 0
+      }
+
+      .hero-grid,
+      .diag-grid,
+      .who,
+      .contact-grid,
+      .faq-grid {
+        grid-template-columns: 1fr;
+        gap: 35px
+      }
+
+      h1 {
+        letter-spacing: -1.5px
+      }
+
+      .section-head {
+        display: block
+      }
+
+      .section-head>p {
+        margin-top: 20px
+      }
+
+      .hero h1 {
+        font-size: 48px
+      }
+
+      .header-inner {
+        min-height: 76px
+      }
+
+      .menu {
+        display: block
+      }
+
+      .nav {
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 76px;
+        padding: 20px;
+        background: #F8F4EC;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: stretch
+      }
+
+      .nav.open {
+        display: flex
+      }
+
+      .nav a {
+        padding: 7px;
+        font-size: 14px
+      }
+
+      .service-grid,
+      .problems {
+        grid-template-columns: 1fr
+      }
+
+      .problems {
+        gap: 26px
+      }
+
+      .service {
+        padding: 26px
+      }
+
+      .method {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px
+      }
+
+      .principle {
+        display: block;
+        padding: 24px
+      }
+
+      .principle p {
+        margin-top: 10px
+      }
+
+      .trust-items {
+        gap: 20px;
+        font-size: 11px
+      }
+
+      .trust-inner {
+        gap: 18px
+      }
+
+      .metrics {
+        padding: 20px;
+        gap: 20px
+      }
+
+      .metric strong {
+        font-size: 25px
+      }
+
+      .demo-toolbar,
+      .demo-bottom {
+        padding: 20px
+      }
+
+      .who-card {
+        min-height: 310px
+      }
+
+      .who-list {
+        gap: 16px
+      }
+
+      .form-panel {
+        padding: 23px
+      }
+
+      .fields {
+        grid-template-columns: 1fr
+      }
+
+      .field.full {
+        grid-column: auto
+      }
+
+      .footer-inner {
+        display: block
+      }
+
+      .footer-inner>div+div {
+        margin-top: 15px
+      }
+
+      .demo-strip {
+        font-size: 10px;
+        padding: 8px 15px
+      }
+
+      .lead {
+        font-size: 16px
+      }
+
+      .dashboard-number {
+        font-size: 42px
+      }
+    }
+
+    @media(max-width:480px) {
+      .dash-grid {
+        grid-template-columns: 1fr
+      }
+
+      .dashboard-top {
+        gap: 15px
+      }
+
+      .dashboard-top span {
+        text-align: right
+      }
+
+      .method {
+        grid-template-columns: 1fr
+      }
+
+      .brand-name {
+        letter-spacing: 1.3px
+      }
+
+      .brand-sub {
+        letter-spacing: 1.5px
+      }
+
+      .header-inner {
+        gap: 10px
+      }
+
+      .who-list {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      html {
+        scroll-behavior: auto
+      }
+    }
+
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .language-control {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    .language-control select {
+      font-size: 12px;
+      padding: 8px;
+      max-width: 118px;
+      min-height: 40px
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0
+    }
+
+    @media(max-width:1100px) {
+      .nav {
+        gap: 13px
+      }
+
+      .brand-name {
+        letter-spacing: 1px
+      }
+
+      .language-control>span {
+        display: none
+      }
+    }
+
+    @media(max-width:760px) {
+      .header-inner {
+        flex-wrap: wrap;
+        padding: 12px 0
+      }
+
+      .nav {
+        top: 100%
+      }
+
+      .language-control>span {
+        display: inline
+      }
+
+      .language-control select {
+        font-size: 16px
+      }
+
+      .header-tools {
+        gap: 12px
+      }
+    }
+
+    @media(max-width:480px) {
+      .header-inner>.brand {
+        width: 100%
+      }
+
+      .header-tools {
+        width: 100%;
+        justify-content: space-between
+      }
+
+      .header-inner {
+        gap: 10px
+      }
+
+      html {
+        scroll-padding-top: 150px
+      }
+
+      .nav {
+        top: 100%
+      }
+    }
+
+    @media print {
+
+      header,
+      .demo-strip,
+      .actions,
+      .filters,
+      .menu,
+      .button,
+      .form-panel,
+      footer {
+        display: none !important
+      }
+
+      .section {
+        padding: 28px 0
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr
+      }
+
+      .dashboard {
+        display: none
+      }
+
+      body {
+        font-size: 12px
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .wrap {
+        width: 100%
+      }
+
+      section {
+        break-inside: avoid
+      }
+    }
+
+    :root {
+      --paper: #F8F4EC;
+      --sage: #7B9B8D;
+      --copper-light: #E5B69A
+    }
+
+    .hero {
+      background: linear-gradient(115deg, #F8F4EC 0%, #F8F4EC 63%, #DFE8DF 63%);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .dashboard {
+      border-radius: 4px 4px 34px 4px;
+      border-top: 4px solid #A45436;
+      box-shadow: 16px 16px 0 #D6E0D7
+    }
+
+    .trust {
+      background: #123E43;
+      color: #F8F4EC;
+      border: 0
+    }
+
+    .trust-title {
+      color: #CCD9D3
+    }
+
+    .trust-items {
+      letter-spacing: 1.5px
+    }
+
+    .service {
+      background: #FFFCF5;
+      border-radius: 4px;
+      border-top: 3px solid #A45436
+    }
+
+    .service-icon {
+      font-size: 34px
+    }
+
+    .who-card {
+      border-radius: 4px 34px 4px 4px;
+      border-bottom: 4px solid #A45436
+    }
+
+    .button {
+      border-radius: 4px
+    }
+
+    .form-panel {
+      background: #FFFCF5;
+      border-radius: 6px
+    }
+
+    .contact-status {
+      padding: 17px 18px;
+      margin-top: 20px;
+      border-left: 3px solid #123E43;
+      background: #E8EDE5;
+      font-size: 13px;
+      overflow-wrap: anywhere
+    }
+
+    .contact-status.error {
+      border-color: #9E3936;
+      background: #FAE9E6
+    }
+
+    .contact-status.warning {
+      border-color: #A45436;
+      background: #F5E6D6
+    }
+
+    .contact-status.success {
+      border-color: #23634B;
+      background: #E6F1EB
+    }
+
+    .honeypot {
+      display: none
+    }
+
+    .contact-section .eyebrow,
+    .who-card .eyebrow {
+      color: var(--copper-light)
+    }
+
+    @media(max-width:760px) {
+      .hero {
+        background: #F8F4EC
+      }
+
+      .dashboard {
+        box-shadow: 8px 8px 0 #D6E0D7
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+  <header>
+    <div class="wrap header-inner"><a class="brand" href="#inicio" aria-label="Carvajal Bemfica, inicio"><span
+          class="monogram" aria-hidden="true">CB</span><span><strong class="brand-name">CARVAJAL BEMFICA</strong><span
+            class="brand-sub">FINANCE &amp; DATA ADVISORY</span></span></a>
+      <nav class="nav" id="nav" aria-label="Principal"><a href="#servicios">Servicios</a><a href="#metodo">Método</a><a
+          href="#demo">Demo</a><a href="#firma">La firma</a><a class="button" href="#contacto">Conversemos <span
+            aria-hidden="true">↗</span></a></nav>
+      <div class="header-tools"><label class="language-control" for="languageSelect"><span>Idioma</span><select
+            id="languageSelect" aria-label="Idioma">
+            <option value="es" lang="es">Español</option>
+            <option value="en" lang="en">English</option>
+            <option value="pt" lang="pt-BR">Português</option>
+          </select></label><button class="menu" id="menuButton" aria-expanded="false" aria-controls="nav">Menú</button>
+      </div><span id="languageStatus" class="sr-only" role="status" aria-live="polite"></span>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Costa Rica · Soporte para LATAM</p>
+          <h1>Tu información<br>financiera.<br><em>Lista para decidir.</em></h1>
+          <p class="lead">Conectamos finanzas, datos y ERP para que tu equipo pueda confiar en sus reportes, entender
+            las diferencias y avanzar con evidencia.</p>
+          <div class="actions"><a class="button" href="#diagnostico">Explorar mi necesidad <span
+                aria-hidden="true">↗</span></a><a class="button secondary" href="#demo">Ver una demo</a></div>
+          <div class="hero-note"><span>ERP Finance &amp; Data Advisory</span><span>Where Finance, Data &amp; ERP
+              Align</span></div>
+        </div>
+        <div class="dashboard" aria-label="Vista ilustrativa de conciliación">
+          <div class="dashboard-top"><b>FINANCE / DATA REVIEW</b><span>ESCENARIO ILUSTRATIVO</span></div>
+          <div class="dashboard-body">
+            <div class="dashboard-label">TRANSACCIONES CONCILIADAS</div>
+            <div class="dashboard-number">97.2<span style="font-size:25px">%</span></div>
+            <p class="dashboard-caption">Una diferencia visible es una decisión mejor informada.</p>
+            <div class="dash-progress" aria-hidden="true"><span style="width:97.2%"></span><span
+                style="width:2.8%"></span></div>
+            <div class="dashboard-caption">Ejemplo visual · no corresponde a un cliente</div>
+            <div class="dash-grid">
+              <div class="dash-cell"><span class="dashboard-label">FUENTE →
+                  REPORTE</span><strong>Trazabilidad</strong><span class="dashboard-caption">ERP · SQL · Power BI</span>
+              </div>
+              <div class="dash-cell"><span class="dashboard-label">UAT / SIT</span><strong>Evidencia</strong><span
+                  class="dashboard-caption">Esperado vs. real</span></div>
+            </div>
+          </div>
+          <div class="dashboard-bottom"><span>Control antes de la decisión.</span><a href="#demo">Explorar conciliación
+              ↗</a></div>
+        </div>
+      </div>
+    </section>
+    <div class="trust">
+      <div class="wrap trust-inner"><span class="trust-title">ÁREAS QUE CONECTAMOS</span>
+        <div class="trust-items">
+          <span>FINANZAS</span><span>PROCUREMENT</span><span>ERP</span><span>DATOS</span><span>UAT / SIT</span></div>
+      </div>
+    </div>
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">El punto de partida</p>
+            <h2>Cuando los números<br>no cuentan la misma historia.</h2>
+          </div>
+          <p>Un reporte puede verse bien y aun así tener diferencias. Trabajamos desde la transacción y su contexto
+            hasta la información que llega a la gerencia.</p>
+        </div>
+        <div class="problems">
+          <article class="problem">
+            <div class="number">01 / INFORMACIÓN</div>
+            <h3>ERP, Excel y dashboard no coinciden</h3>
+            <p>Identificamos diferencias de corte, filtros, reglas, moneda, duplicados y mapeos. Documentamos qué
+              explica cada variación.</p>
+          </article>
+          <article class="problem">
+            <div class="number">02 / OPERACIÓN</div>
+            <h3>El proceso depende de trabajo manual</h3>
+            <p>Mapeamos entradas, responsables, excepciones y controles para priorizar mejoras y reducir conciliaciones
+              repetidas.</p>
+          </article>
+          <article class="problem">
+            <div class="number">03 / CAMBIO</div>
+            <h3>Un lanzamiento necesita evidencia</h3>
+            <p>Convertimos requisitos en escenarios de prueba y criterios de aceptación, con hallazgos claros para
+              apoyar la aprobación del negocio.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section class="section services" id="servicios">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Cómo podemos ayudar</p>
+            <h2>Seis servicios.<br>Una visión conectada.</h2>
+          </div>
+          <p>El alcance se define según tus procesos, acceso a datos y prioridades. Cada trabajo debe terminar con un
+            resultado que tu equipo pueda revisar y utilizar.</p>
+        </div>
+        <div class="service-grid">
+          <article class="service">
+            <div class="service-icon" aria-hidden="true">01</div>
+            <h3>ERP Finance &amp;<br>validación de datos</h3>
+            <p>Revisamos integridad, consistencia y exactitud entre datos maestros, transacciones y saldos.</p>
+            <ul>
+              <li>Requisitos y reglas de negocio</li>
+              <li>Validación de mapeos y migraciones</li>
+              <li>Conciliación fuente a reporte</li>
+            </ul>
+            <details>
+              <summary>Ver entregables propuestos</summary>
+              <p>Matriz de validación, registro de diferencias, evidencia de pruebas y recomendaciones priorizadas.</p>
+            </details>
+          </article>
+          <article class="service">
+            <div class="service-icon" aria-hidden="true">02</div>
+            <h3>Power BI &amp;<br>reporting financiero</h3>
+            <p>Definimos indicadores útiles y reportes que permitan investigar los resultados.</p>
+            <ul>
+              <li>Definición y revisión de KPI</li>
+              <li>Diseño de vistas y filtros</li>
+              <li>Validación de cifras y acceso</li>
+            </ul>
+            <details>
+              <summary>Ver entregables propuestos</summary>
+              <p>Prototipo de dashboard, diccionario de KPI, reglas de cálculo y validación contra fuentes acordadas.
+              </p>
+            </details>
+          </article>
+          <article class="service">
+            <div class="service-icon" aria-hidden="true">03</div>
+            <h3>SQL &amp;<br>conciliación de datos</h3>
+            <p>Investigamos las diferencias en el nivel de detalle necesario para explicar su origen.</p>
+            <ul>
+              <li>Consultas y revisión de joins</li>
+              <li>Duplicados y registros faltantes</li>
+              <li>Comparación entre fuentes</li>
+            </ul>
+            <details>
+              <summary>Ver entregables propuestos</summary>
+              <p>Consultas documentadas, lógica de conciliación, listado de excepciones y evidencia de causa raíz.</p>
+            </details>
+          </article>
+          <article class="service">
+            <div class="service-icon" aria-hidden="true">04</div>
+            <h3>Controles P2P<br>&amp; GR/IR</h3>
+            <p>Revisamos puntos de control en compras, recepciones, facturas y conciliaciones.</p>
+            <ul>
+              <li>Mapa de proceso y excepciones</li>
+              <li>Revisión de partidas abiertas</li>
+              <li>Seguimiento de responsables</li>
+            </ul>
+            <details>
+              <summary>Ver entregables propuestos</summary>
+              <p>Mapa P2P, matriz de controles, análisis de excepciones y plan de remediación. El servicio no sustituye
+                una auditoría certificada.</p>
+            </details>
+          </article>
+          <article class="service">
+            <div class="service-icon" aria-hidden="true">05</div>
+            <h3>Procurement analytics<br>&amp; datos de proveedores</h3>
+            <p>Analizamos gasto y atributos de proveedores para mejorar la visibilidad de compras.</p>
+            <ul>
+              <li>Clasificación y categorías</li>
+              <li>Calidad y jerarquías de proveedores</li>
+              <li>Consistencia de spend y reportes</li>
+            </ul>
+            <details>
+              <summary>Ver entregables propuestos</summary>
+              <p>Perfil de calidad de datos, análisis de gasto, registro de anomalías y recomendaciones de
+                clasificación.</p>
+            </details>
+          </article>
+          <article class="service">
+            <div class="service-icon" aria-hidden="true">06</div>
+            <h3>UAT / SIT<br>&amp; apoyo al sign-off</h3>
+            <p>Organizamos pruebas funcionales con resultados verificables y observaciones claras.</p>
+            <ul>
+              <li>Escenarios y criterios de aceptación</li>
+              <li>Validación esperado vs. real</li>
+              <li>Defectos, retesting y reporte</li>
+            </ul>
+            <details>
+              <summary>Ver entregables propuestos</summary>
+              <p>Plan y scripts de prueba, matriz de evidencia, registro de defectos y recomendación GO / GO con
+                observaciones / NO-GO. La aprobación final pertenece al cliente.</p>
+            </details>
+          </article>
+        </div>
+        <p class="service-foot">Tecnologías relevantes: SAP, Oracle, JD Edwards, Power BI y SQL. La cobertura de cada
+          plataforma se confirma durante el diagnóstico; especialistas adicionales pueden incorporarse según el alcance.
+        </p>
+      </div>
+    </section>
+    <section class="section" id="metodo">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Nuestra forma de trabajar</p>
+            <h2>Primero entendemos.<br>Después transformamos.</h2>
+          </div>
+          <p>Una ruta propuesta que se adapta al proyecto. Los tiempos, honorarios y responsabilidades se acuerdan
+            después de revisar el alcance.</p>
+        </div>
+        <div class="method">
+          <article class="method-step"><small>01 / DESCUBRIR</small>
+            <h3>Entender el problema</h3>
+            <p>Conversamos con usuarios y responsables. Revisamos procesos, sistemas, disponibilidad de datos y
+              prioridades.</p>
+            <div class="deliverable"><b>Salida:</b> alcance inicial y mapa de situación actual.</div>
+          </article>
+          <article class="method-step"><small>02 / DIAGNOSTICAR</small>
+            <h3>Medir las diferencias</h3>
+            <p>Aplicamos validaciones y conciliaciones. Identificamos brechas, causas probables y dependencias.</p>
+            <div class="deliverable"><b>Salida:</b> hallazgos documentados y prioridades.</div>
+          </article>
+          <article class="method-step"><small>03 / MEJORAR</small>
+            <h3>Diseñar la solución</h3>
+            <p>Acordamos mejoras de proceso, datos y reporting. Definimos responsables y criterios de aceptación.</p>
+            <div class="deliverable"><b>Salida:</b> hoja de ruta y entregables acordados.</div>
+          </article>
+          <article class="method-step"><small>04 / VALIDAR</small>
+            <h3>Comprobar el resultado</h3>
+            <p>Probamos los cambios, revisamos excepciones y entregamos evidencia para apoyar la decisión del negocio.
+            </p>
+            <div class="deliverable"><b>Salida:</b> resultados de pruebas y transferencia.</div>
+          </article>
+        </div>
+        <div class="principle"><strong>Evidencia en cada etapa.</strong>
+          <p>Una recomendación debe conectar el hallazgo, su impacto, la acción propuesta y el criterio para comprobar
+            que fue resuelto.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section demo-section" id="demo">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Prueba una experiencia</p>
+            <h2>De una diferencia<br>a una explicación.</h2>
+          </div>
+          <p>Filtra una conciliación ilustrativa entre ERP y reporting. Abre los registros con diferencias, simula su
+            resolución y descarga la evidencia del ejemplo.</p>
+        </div>
+        <div class="demo-shell">
+          <div class="demo-toolbar">
+            <div><b>Conciliación ERP → reporte</b><br><span class="small">8 registros ficticios · USD · corte
+                ilustrativo</span></div>
+            <div class="filters"><label for="erpFilter">ERP</label><select id="erpFilter">
+                <option value="all">Todos</option>
+                <option>SAP</option>
+                <option>Oracle</option>
+                <option>JDE</option>
+              </select><label><input type="checkbox" id="onlyExceptions"> Solo diferencias</label></div>
+          </div>
+          <div class="metrics" aria-live="polite">
+            <div class="metric"><span>Esperado · filtro actual</span><strong id="expectedMetric"></strong></div>
+            <div class="metric"><span>Real · filtro actual</span><strong id="actualMetric"></strong></div>
+            <div class="metric"><span>Variación neta · real − esperado</span><strong id="varianceMetric"></strong></div>
+            <div class="metric"><span>Registros con diferencia</span><strong id="exceptionsMetric"></strong></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <caption class="small" style="text-align:left;padding:0 26px 14px">Selecciona el identificador para
+                revisar la observación.</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Registro / ERP</th>
+                  <th scope="col">Proveedor</th>
+                  <th scope="col" class="num">Esperado USD</th>
+                  <th scope="col" class="num">Real USD</th>
+                  <th scope="col" class="num">Δ USD</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody id="demoRows"></tbody>
+            </table>
+          </div>
+          <div class="demo-bottom">
+            <div class="demo-verdict" aria-live="polite"><span id="verdict" class="badge"></span>
+              <p id="verdictNote"></p>
+            </div>
+            <div class="actions" style="margin:0"><button class="button secondary" id="exportCsv">Descargar
+                CSV</button><button class="button" id="resolveButton">Simular correcciones</button></div>
+          </div>
+        </div>
+        <p class="demo-disclaimer">La recomendación usa todos los registros del ejemplo, independientemente del filtro.
+          Regla ilustrativa: una diferencia crítica abierta produce NO-GO; diferencias no críticas producen GO con
+          observaciones; sin diferencias, GO. No representa una validación real.</p>
+      </div>
+    </section>
+    <section class="section" id="firma">
+      <div class="wrap who">
+        <div class="who-card"><span class="monogram" aria-hidden="true">CB</span>
+          <div>
+            <p class="eyebrow">Finance &amp; Data Advisory</p>
+            <h3>Una firma boutique.<br>Una mirada integral.</h3>
+            <p style="margin-top:15px">Where Finance, Data &amp; ERP Align</p>
+          </div>
+        </div>
+        <div class="who-content">
+          <p class="eyebrow">Carvajal Bemfica</p>
+          <h2>Entender el negocio.<br>Investigar el dato.</h2>
+          <p class="lead">La propuesta de la firma reúne la experiencia de Aaron Carvajal en contabilidad, procurement,
+            pruebas ERP, conciliación de datos y analítica.</p>
+          <p style="color:var(--muted);font-size:14px">El trabajo conecta a las áreas de negocio y tecnología: traducir
+            una necesidad, investigar su causa y presentar evidencia que permita decidir. El equipo de cada proyecto se
+            define según sus necesidades técnicas y funcionales.</p>
+          <div class="who-list">
+            <div><b>Visión funcional</b><span>Finanzas, P2P y procesos de compras.</span></div>
+            <div><b>Validación técnica</b><span>SQL, datos y lógica de reporting.</span></div>
+            <div><b>Disciplina de pruebas</b><span>UAT/SIT, observaciones y evidencia.</span></div>
+            <div><b>Base regional</b><span>Costa Rica / LATAM support.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section diagnostic" id="diagnostico">
+      <div class="wrap diag-grid">
+        <div class="diag-copy">
+          <p class="eyebrow">Define tu punto de partida</p>
+          <h2>¿Qué necesita<br>tu operación?</h2>
+          <p>Responde cuatro preguntas para obtener una orientación inicial y preparar una conversación con contexto.
+          </p>
+          <ul>
+            <li>No requiere acceso a tus sistemas.</li>
+            <li>No subas información confidencial.</li>
+            <li>Las respuestas permanecen en esta página hasta que tú decidas exportarlas o incluirlas en un correo.
+            </li>
+          </ul>
+          <p class="small">El resultado es orientativo. El alcance se confirma en una conversación y revisión posterior.
+          </p>
+        </div>
+        <div class="form-panel">
+          <form id="diagnosticForm">
+            <div class="fields">
+              <div class="field full"><label for="challenge">1. ¿Cuál es la prioridad?</label><select id="challenge"
+                  required>
+                  <option value="">Selecciona una opción</option>
+                  <option value="reconcile">ERP y reportes no coinciden</option>
+                  <option value="reporting">Crear o mejorar dashboards</option>
+                  <option value="controls">Revisar procesos y controles P2P / GR/IR</option>
+                  <option value="testing">Validar un cambio o lanzamiento ERP</option>
+                </select></div>
+              <div class="field"><label for="system">2. Sistema principal</label><select id="system" required>
+                  <option value="">Selecciona</option>
+                  <option>SAP</option>
+                  <option>Oracle</option>
+                  <option>JD Edwards</option>
+                  <option>Softland</option>
+                  <option>TOTVS</option>
+                  <option>Varios sistemas</option>
+                  <option>Otro / por definir</option>
+                </select></div>
+              <div class="field"><label for="dataReady">3. Acceso a datos</label><select id="dataReady" required>
+                  <option value="">Selecciona</option>
+                  <option value="yes">Extractos o consultas disponibles</option>
+                  <option value="partial">Acceso parcial / principalmente Excel</option>
+                  <option value="no">Todavía no está definido</option>
+                </select></div>
+              <div class="field full"><label for="timing">4. Horizonte de la necesidad</label><select id="timing"
+                  required>
+                  <option value="">Selecciona</option>
+                  <option>Necesidad actual / urgente</option>
+                  <option>Próximos 1–3 meses</option>
+                  <option>Exploración sin fecha definida</option>
+                </select></div>
+            </div><button class="button" type="submit">Ver orientación inicial <span
+                aria-hidden="true">→</span></button>
+          </form>
+          <div id="diagnosticResult" class="result" hidden aria-live="polite">
+            <h3 id="resultTitle"></h3>
+            <p id="resultText"></p>
+            <ul id="resultList"></ul>
+            <div class="actions"><button type="button" class="button" id="useDiagnostic">Llevar al
+                contacto</button><button type="button" class="button secondary" id="exportDiagnostic">Descargar
+                resumen</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="preguntas">
+      <div class="wrap faq-grid">
+        <div>
+          <p class="eyebrow">Antes de empezar</p>
+          <h2>Preguntas<br>frecuentes.</h2>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>¿Es necesario cambiar de ERP?</summary>
+            <p>No siempre. Primero se revisa si el problema está en procesos, calidad de datos, configuración,
+              integraciones o reportes. Una sustitución requiere un análisis de alcance, alternativas, costo y riesgo.
+            </p>
+          </details>
+          <details>
+            <summary>¿Puedo contratar solo una validación o un dashboard?</summary>
+            <p>La propuesta contempla trabajos acotados por necesidad. Se acuerdan fuentes, entregables, criterios de
+              aceptación y responsabilidades antes de iniciar.</p>
+          </details>
+          <details>
+            <summary>¿Cómo se define el precio y la duración?</summary>
+            <p>Después de revisar la complejidad, los sistemas, disponibilidad de información, volumen, participación
+              del cliente y especialistas requeridos. Esta demo no establece tarifas ni plazos contractuales.</p>
+          </details>
+          <details>
+            <summary>¿Quién aprueba el lanzamiento o el resultado?</summary>
+            <p>El responsable autorizado por el cliente. La consultoría aporta validaciones, evidencia y una
+              recomendación, pero no reemplaza la decisión formal del negocio.</p>
+          </details>
+          <details>
+            <summary>¿Cómo se manejaría la información de mi empresa?</summary>
+            <p>Los accesos y la confidencialidad se acuerdan antes de trabajar con datos reales. La muestra no conecta a
+              ERPs ni recibe archivos. El formulario utiliza un servicio externo para remitir tu consulta.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+    <section class="section contact-section" id="contacto">
+      <div class="wrap contact-grid">
+        <div>
+          <p class="eyebrow">Empecemos con una conversación</p>
+          <h2>Cuéntanos dónde<br>se rompe la confianza<br>en tus datos.</h2>
+          <p class="lead">Un objetivo concreto, los sistemas involucrados y la principal dificultad son suficientes para
+            iniciar.</p>
+          <div class="contact-details">
+            <p><b>Correo</b><br><span>aanohel@gmail.com</span></p>
+            <p><b>Ubicación</b><br>Costa Rica / LATAM support</p>
+            <p><b>Contacto profesional</b><br><a href="https://www.linkedin.com/in/aaron-carvajal-79068b125/?locale=es"
+                target="_blank" rel="noopener noreferrer">Aaron Carvajal en LinkedIn ↗</a></p>
+          </div>
+        </div>
+        <div class="form-panel">
+          <form id="contactForm" method="POST" action="https://formsubmit.co/aanohel@gmail.com">
+            <div class="fields">
+              <div class="field"><label for="name">Nombre *</label><input id="name" name="name" autocomplete="name"
+                  required maxlength="100"></div>
+              <div class="field"><label for="email">Correo *</label><input id="email" name="email" type="email"
+                  autocomplete="email" required maxlength="150"></div>
+              <div class="field full"><label for="company">Empresa</label><input id="company" name="company"
+                  autocomplete="organization" maxlength="150"></div>
+              <div class="field full"><label for="message">¿Qué necesitas revisar? *</label><textarea id="message"
+                  name="message" required maxlength="2000"
+                  placeholder="Ejemplo: nuestro dashboard de compras no coincide con SAP. Necesitamos identificar las diferencias y validar el reporte."></textarea>
+              </div>
+            </div><input id="website" name="_honey" type="text" class="honeypot" autocomplete="off" tabindex="-1"
+              aria-hidden="true"><button id="submitContact" class="button" type="submit">Enviar mensaje <span
+                aria-hidden="true">↗</span></button>
+            <p class="contact-note">Tu consulta se enviará mediante FormSubmit. No incluyas información confidencial.
+            </p>
+          </form>
+          <p id="contactStatus" class="contact-status" role="status" aria-live="polite" hidden></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap footer-inner">
+      <div><b class="footer-name">CARVAJAL BEMFICA</b><br>Finance &amp; Data Advisory · Where Finance, Data &amp; ERP
+        Align</div>
+      <div>© 2026 · Sitio corporativo<br><a href="#inicio">Volver al inicio ↑</a> · Finanzas, datos y ERP</div>
+    </div>
+  </footer>
+  <dialog id="recordDialog" aria-labelledby="recordTitle">
+    <div class="modal-top"><span class="badge" id="recordBadge"></span><button class="close" id="closeDialog"
+        type="button" aria-label="Cerrar detalle">×</button></div>
+    <h3 id="recordTitle"></h3>
+    <p id="recordText"></p>
+    <p id="recordAction"></p><button class="button secondary" id="doneDialog" type="button">Volver a la
+      conciliación</button>
+  </dialog>
+  <script>
+    'use strict';
+    const $ = id => document.getElementById(id);
+    let language = 'es', resolved = false, diagnostic = null, contactStatusKey = '', contactStatusKind = 'info', pendingSend = false, openRecordId = null, generatedMessage = null;
+    const translations = { "Saltar al contenido": ["Skip to content", "Ir para o conteúdo"], "Menú": ["Menu", "Menu"], "Servicios": ["Services", "Serviços"], "Método": ["Method", "Método"], "La firma": ["The firm", "A consultoria"], "Conversemos": ["Let's talk", "Vamos conversar"], "Costa Rica · Soporte para LATAM": ["Costa Rica · Support for LATAM", "Costa Rica · Suporte para a América Latina"], "Tu información": ["Your financial", "Suas informações"], "financiera.": ["information.", "financeiras."], "Lista para decidir.": ["Ready for decisions.", "Prontas para decidir."], "Conectamos finanzas, datos y ERP para que tu equipo pueda confiar en sus reportes, entender las diferencias y avanzar con evidencia.": ["We connect finance, data and ERP so your team can trust its reports, understand discrepancies and move forward with evidence.", "Conectamos finanças, dados e ERP para que sua equipe possa confiar nos relatórios, entender as divergências e avançar com evidências."], "Explorar mi necesidad": ["Explore my needs", "Explorar minha necessidade"], "Ver una demo": ["View a demo", "Ver uma demo"], "ESCENARIO ILUSTRATIVO": ["ILLUSTRATIVE SCENARIO", "CENÁRIO ILUSTRATIVO"], "TRANSACCIONES CONCILIADAS": ["RECONCILED TRANSACTIONS", "TRANSAÇÕES CONCILIADAS"], "Una diferencia visible es una decisión mejor informada.": ["A visible discrepancy supports a better-informed decision.", "Uma divergência visível permite uma decisão mais bem informada."], "Ejemplo visual · no corresponde a un cliente": ["Visual example · not a client result", "Exemplo visual · não representa um cliente"], "FUENTE → REPORTE": ["SOURCE → REPORT", "ORIGEM → RELATÓRIO"], "Trazabilidad": ["Traceability", "Rastreabilidade"], "Evidencia": ["Evidence", "Evidência"], "Esperado vs. real": ["Expected vs. actual", "Esperado versus real"], "Control antes de la decisión.": ["Control before the decision.", "Controle antes da decisão."], "Explorar conciliación ↗": ["Explore reconciliation ↗", "Explorar conciliação ↗"], "ÁREAS QUE CONECTAMOS": ["AREAS WE CONNECT", "ÁREAS QUE CONECTAMOS"], "FINANZAS": ["FINANCE", "FINANÇAS"], "PROCUREMENT": ["PROCUREMENT", "COMPRAS"], "DATOS": ["DATA", "DADOS"], "El punto de partida": ["The starting point", "O ponto de partida"], "Cuando los números": ["When the numbers", "Quando os números"], "no cuentan la misma historia.": ["tell different stories.", "contam histórias diferentes."], "Un reporte puede verse bien y aun así tener diferencias. Trabajamos desde la transacción y su contexto hasta la información que llega a la gerencia.": ["A report can look right and still contain discrepancies. We work from the transaction and its context through to the information management receives.", "Um relatório pode parecer correto e ainda apresentar divergências. Trabalhamos desde a transação e seu contexto até a informação que chega à gestão."], "01 / INFORMACIÓN": ["01 / INFORMATION", "01 / INFORMAÇÃO"], "ERP, Excel y dashboard no coinciden": ["ERP, Excel and dashboards disagree", "ERP, Excel e dashboard não coincidem"], "Identificamos diferencias de corte, filtros, reglas, moneda, duplicados y mapeos. Documentamos qué explica cada variación.": ["We identify differences in reporting cutoffs, filters, rules, currency, duplicates and mappings. We document what explains each variance.", "Identificamos diferenças de data de corte, filtros, regras, moeda, duplicidades e mapeamentos. Documentamos o que explica cada variação."], "02 / OPERACIÓN": ["02 / OPERATIONS", "02 / OPERAÇÃO"], "El proceso depende de trabajo manual": ["The process relies on manual work", "O processo depende de trabalho manual"], "Mapeamos entradas, responsables, excepciones y controles para priorizar mejoras y reducir conciliaciones repetidas.": ["We map inputs, owners, exceptions and controls to prioritize improvements and reduce repeated reconciliations.", "Mapeamos entradas, responsáveis, exceções e controles para priorizar melhorias e reduzir conciliações repetidas."], "03 / CAMBIO": ["03 / CHANGE", "03 / MUDANÇA"], "Un lanzamiento necesita evidencia": ["A release needs evidence", "Uma implantação precisa de evidências"], "Convertimos requisitos en escenarios de prueba y criterios de aceptación, con hallazgos claros para apoyar la aprobación del negocio.": ["We turn requirements into test scenarios and acceptance criteria, with clear findings to support business approval.", "Transformamos requisitos em cenários de teste e critérios de aceitação, com resultados claros para apoiar a aprovação do negócio."], "Cómo podemos ayudar": ["How we can help", "Como podemos ajudar"], "Seis servicios.": ["Six services.", "Seis serviços."], "Una visión conectada.": ["One connected view.", "Uma visão integrada."], "El alcance se define según tus procesos, acceso a datos y prioridades. Cada trabajo debe terminar con un resultado que tu equipo pueda revisar y utilizar.": ["Scope is defined around your processes, data access and priorities. Each engagement should deliver a result your team can review and use.", "O escopo é definido conforme seus processos, acesso aos dados e prioridades. Cada trabalho deve entregar um resultado que sua equipe possa revisar e utilizar."], "validación de datos": ["data validation", "validação de dados"], "Revisamos integridad, consistencia y exactitud entre datos maestros, transacciones y saldos.": ["We review integrity, consistency and accuracy across master data, transactions and balances.", "Revisamos integridade, consistência e exatidão entre dados mestres, transações e saldos."], "Requisitos y reglas de negocio": ["Requirements and business rules", "Requisitos e regras de negócio"], "Validación de mapeos y migraciones": ["Mapping and migration validation", "Validação de mapeamentos e migrações"], "Conciliación fuente a reporte": ["Source-to-report reconciliation", "Conciliação entre origem e relatório"], "Ver entregables propuestos": ["View proposed deliverables", "Ver entregáveis propostos"], "Matriz de validación, registro de diferencias, evidencia de pruebas y recomendaciones priorizadas.": ["Validation matrix, discrepancy log, test evidence and prioritized recommendations.", "Matriz de validação, registro de divergências, evidências de testes e recomendações priorizadas."], "reporting financiero": ["financial reporting", "relatórios financeiros"], "Definimos indicadores útiles y reportes que permitan investigar los resultados.": ["We define useful indicators and reports that allow users to investigate results.", "Definimos indicadores úteis e relatórios que permitem investigar os resultados."], "Definición y revisión de KPI": ["KPI definition and review", "Definição e revisão de KPIs"], "Diseño de vistas y filtros": ["View and filter design", "Design de visualizações e filtros"], "Validación de cifras y acceso": ["Figure and access validation", "Validação de valores e acessos"], "Prototipo de dashboard, diccionario de KPI, reglas de cálculo y validación contra fuentes acordadas.": ["Dashboard prototype, KPI dictionary, calculation rules and validation against agreed sources.", "Protótipo de dashboard, dicionário de KPIs, regras de cálculo e validação com as fontes acordadas."], "conciliación de datos": ["data reconciliation", "conciliação de dados"], "Investigamos las diferencias en el nivel de detalle necesario para explicar su origen.": ["We investigate discrepancies at the level of detail needed to explain their origin.", "Investigamos divergências no nível de detalhe necessário para explicar sua origem."], "Consultas y revisión de joins": ["Queries and join review", "Consultas e revisão de joins"], "Duplicados y registros faltantes": ["Duplicates and missing records", "Duplicidades e registros ausentes"], "Comparación entre fuentes": ["Cross-source comparison", "Comparação entre fontes"], "Consultas documentadas, lógica de conciliación, listado de excepciones y evidencia de causa raíz.": ["Documented queries, reconciliation logic, exception list and root-cause evidence.", "Consultas documentadas, lógica de conciliação, lista de exceções e evidências de causa raiz."], "Controles P2P": ["P2P controls", "Controles P2P"], "Revisamos puntos de control en compras, recepciones, facturas y conciliaciones.": ["We review control points across purchasing, receipts, invoices and reconciliations.", "Revisamos pontos de controle em compras, recebimentos, faturas e conciliações."], "Mapa de proceso y excepciones": ["Process and exception map", "Mapa de processos e exceções"], "Revisión de partidas abiertas": ["Open-item review", "Revisão de itens em aberto"], "Seguimiento de responsables": ["Owner follow-up", "Acompanhamento dos responsáveis"], "Mapa P2P, matriz de controles, análisis de excepciones y plan de remediación. El servicio no sustituye una auditoría certificada.": ["P2P map, control matrix, exception analysis and remediation plan. This service does not replace a certified audit.", "Mapa P2P, matriz de controles, análise de exceções e plano de correção. O serviço não substitui uma auditoria certificada."], "Procurement analytics": ["Procurement analytics", "Análise de compras"], "& datos de proveedores": ["& supplier data", "e dados de fornecedores"], "Analizamos gasto y atributos de proveedores para mejorar la visibilidad de compras.": ["We analyze spend and supplier attributes to improve purchasing visibility.", "Analisamos gastos e atributos de fornecedores para melhorar a visibilidade das compras."], "Clasificación y categorías": ["Classification and categories", "Classificação e categorias"], "Calidad y jerarquías de proveedores": ["Supplier quality and hierarchies", "Qualidade e hierarquias de fornecedores"], "Consistencia de spend y reportes": ["Spend and report consistency", "Consistência de gastos e relatórios"], "Perfil de calidad de datos, análisis de gasto, registro de anomalías y recomendaciones de clasificación.": ["Data-quality profile, spend analysis, anomaly log and classification recommendations.", "Perfil de qualidade dos dados, análise de gastos, registro de anomalias e recomendações de classificação."], "& apoyo al sign-off": ["& sign-off support", "e apoio à aprovação"], "Organizamos pruebas funcionales con resultados verificables y observaciones claras.": ["We organize functional testing with verifiable results and clear observations.", "Organizamos testes funcionais com resultados verificáveis e observações claras."], "Escenarios y criterios de aceptación": ["Scenarios and acceptance criteria", "Cenários e critérios de aceitação"], "Validación esperado vs. real": ["Expected-versus-actual validation", "Validação do esperado versus real"], "Defectos, retesting y reporte": ["Defects, retesting and reporting", "Defeitos, novos testes e relatórios"], "Plan y scripts de prueba, matriz de evidencia, registro de defectos y recomendación GO / GO con observaciones / NO-GO. La aprobación final pertenece al cliente.": ["Test plan and scripts, evidence matrix, defect log and GO / GO with observations / NO-GO recommendation. Final approval remains with the client.", "Plano e roteiros de teste, matriz de evidências, registro de defeitos e recomendação GO / GO com observações / NO-GO. A aprovação final pertence ao cliente."], "Tecnologías relevantes: SAP, Oracle, JD Edwards, Power BI y SQL. La cobertura de cada plataforma se confirma durante el diagnóstico; especialistas adicionales pueden incorporarse según el alcance.": ["Relevant technologies: SAP, Oracle, JD Edwards, Power BI and SQL. Coverage for each platform is confirmed during diagnosis; additional specialists may join depending on scope.", "Tecnologias relevantes: SAP, Oracle, JD Edwards, Power BI e SQL. A cobertura de cada plataforma é confirmada durante o diagnóstico; especialistas adicionais podem participar conforme o escopo."], "Nuestra forma de trabajar": ["How we work", "Nossa forma de trabalhar"], "Primero entendemos.": ["First, we understand.", "Primeiro, entendemos."], "Después transformamos.": ["Then, we transform.", "Depois, transformamos."], "Una ruta propuesta que se adapta al proyecto. Los tiempos, honorarios y responsabilidades se acuerdan después de revisar el alcance.": ["A proposed approach adapted to each project. Timelines, fees and responsibilities are agreed after reviewing scope.", "Uma abordagem proposta que se adapta ao projeto. Prazos, honorários e responsabilidades são acordados após a revisão do escopo."], "01 / DESCUBRIR": ["01 / DISCOVER", "01 / DESCOBRIR"], "Entender el problema": ["Understand the problem", "Entender o problema"], "Conversamos con usuarios y responsables. Revisamos procesos, sistemas, disponibilidad de datos y prioridades.": ["We talk with users and owners. We review processes, systems, data availability and priorities.", "Conversamos com usuários e responsáveis. Revisamos processos, sistemas, disponibilidade de dados e prioridades."], "Salida:": ["Output:", "Entrega:"], "alcance inicial y mapa de situación actual.": ["initial scope and current-state map.", "escopo inicial e mapa da situação atual."], "02 / DIAGNOSTICAR": ["02 / DIAGNOSE", "02 / DIAGNOSTICAR"], "Medir las diferencias": ["Measure discrepancies", "Medir as divergências"], "Aplicamos validaciones y conciliaciones. Identificamos brechas, causas probables y dependencias.": ["We apply validations and reconciliations. We identify gaps, probable causes and dependencies.", "Aplicamos validações e conciliações. Identificamos lacunas, causas prováveis e dependências."], "hallazgos documentados y prioridades.": ["documented findings and priorities.", "resultados documentados e prioridades."], "03 / MEJORAR": ["03 / IMPROVE", "03 / MELHORAR"], "Diseñar la solución": ["Design the solution", "Desenhar a solução"], "Acordamos mejoras de proceso, datos y reporting. Definimos responsables y criterios de aceptación.": ["We agree on process, data and reporting improvements. We define owners and acceptance criteria.", "Acordamos melhorias de processos, dados e relatórios. Definimos responsáveis e critérios de aceitação."], "hoja de ruta y entregables acordados.": ["roadmap and agreed deliverables.", "roteiro e entregáveis acordados."], "04 / VALIDAR": ["04 / VALIDATE", "04 / VALIDAR"], "Comprobar el resultado": ["Verify the result", "Comprovar o resultado"], "Probamos los cambios, revisamos excepciones y entregamos evidencia para apoyar la decisión del negocio.": ["We test changes, review exceptions and deliver evidence to support the business decision.", "Testamos as mudanças, revisamos exceções e entregamos evidências para apoiar a decisão do negócio."], "resultados de pruebas y transferencia.": ["test results and knowledge transfer.", "resultados dos testes e transferência de conhecimento."], "Evidencia en cada etapa.": ["Evidence at every stage.", "Evidência em cada etapa."], "Una recomendación debe conectar el hallazgo, su impacto, la acción propuesta y el criterio para comprobar que fue resuelto.": ["A recommendation should connect the finding, its impact, the proposed action and the criteria for confirming resolution.", "Uma recomendação deve conectar o resultado, seu impacto, a ação proposta e o critério para confirmar que foi resolvido."], "Prueba una experiencia": ["Try the experience", "Experimente"], "De una diferencia": ["From discrepancy", "De uma divergência"], "a una explicación.": ["to explanation.", "a uma explicação."], "Filtra una conciliación ilustrativa entre ERP y reporting. Abre los registros con diferencias, simula su resolución y descarga la evidencia del ejemplo.": ["Filter an illustrative ERP-to-report reconciliation. Open records with discrepancies, simulate their resolution and download the example evidence.", "Filtre uma conciliação ilustrativa entre ERP e relatórios. Abra os registros com divergências, simule a resolução e baixe as evidências do exemplo."], "Conciliación ERP → reporte": ["ERP → report reconciliation", "Conciliação ERP → relatório"], "8 registros ficticios · USD · corte ilustrativo": ["8 fictional records · USD · illustrative cutoff", "8 registros fictícios · USD · data de corte ilustrativa"], "Todos": ["All", "Todos"], "Solo diferencias": ["Discrepancies only", "Somente divergências"], "Esperado · filtro actual": ["Expected · current filter", "Esperado · filtro atual"], "Real · filtro actual": ["Actual · current filter", "Real · filtro atual"], "Variación neta · real − esperado": ["Net variance · actual − expected", "Variação líquida · real − esperado"], "Registros con diferencia": ["Records with discrepancies", "Registros com divergências"], "Selecciona el identificador para revisar la observación.": ["Select the identifier to review the observation.", "Selecione o identificador para revisar a observação."], "Registro / ERP": ["Record / ERP", "Registro / ERP"], "Proveedor": ["Supplier", "Fornecedor"], "Esperado USD": ["Expected USD", "Esperado USD"], "Real USD": ["Actual USD", "Real USD"], "Estado": ["Status", "Status"], "Descargar CSV": ["Download CSV", "Baixar CSV"], "Simular correcciones": ["Simulate corrections", "Simular correções"], "La recomendación usa todos los registros del ejemplo, independientemente del filtro. Regla ilustrativa: una diferencia crítica abierta produce NO-GO; diferencias no críticas producen GO con observaciones; sin diferencias, GO. No representa una validación real.": ["The recommendation uses all example records, regardless of filters. Illustrative rule: an open critical discrepancy results in NO-GO; non-critical discrepancies result in GO with observations; no discrepancies result in GO. This is not a real validation.", "A recomendação considera todos os registros do exemplo, independentemente do filtro. Regra ilustrativa: uma divergência crítica aberta gera NO-GO; divergências não críticas geram GO com observações; sem divergências, GO. Não representa uma validação real."], "Una firma boutique.": ["A boutique advisory firm.", "Uma consultoria boutique."], "Una mirada integral.": ["An integrated perspective.", "Uma visão integral."], "Entender el negocio.": ["Understand the business.", "Entender o negócio."], "Investigar el dato.": ["Investigate the data.", "Investigar o dado."], "La propuesta de la firma reúne la experiencia de Aaron Carvajal en contabilidad, procurement, pruebas ERP, conciliación de datos y analítica.": ["The firm's offering brings together Aaron Carvajal's experience in accounting, procurement, ERP testing, data reconciliation and analytics.", "A proposta da consultoria reúne a experiência de Aaron Carvajal em contabilidade, compras, testes ERP, conciliação de dados e análise de dados."], "El trabajo conecta a las áreas de negocio y tecnología: traducir una necesidad, investigar su causa y presentar evidencia que permita decidir. El equipo de cada proyecto se define según sus necesidades técnicas y funcionales.": ["Our work connects business and technology: translating a need, investigating its cause and presenting evidence that supports decisions. Each project team is defined around its technical and functional needs.", "O trabalho conecta negócio e tecnologia: traduzir uma necessidade, investigar sua causa e apresentar evidências para apoiar decisões. A equipe de cada projeto é definida conforme suas necessidades técnicas e funcionais."], "Visión funcional": ["Functional perspective", "Visão funcional"], "Finanzas, P2P y procesos de compras.": ["Finance, P2P and purchasing processes.", "Finanças, P2P e processos de compras."], "Validación técnica": ["Technical validation", "Validação técnica"], "SQL, datos y lógica de reporting.": ["SQL, data and reporting logic.", "SQL, dados e lógica de relatórios."], "Disciplina de pruebas": ["Testing discipline", "Disciplina de testes"], "UAT/SIT, observaciones y evidencia.": ["UAT/SIT, observations and evidence.", "UAT/SIT, observações e evidências."], "Base regional": ["Regional base", "Base regional"], "Costa Rica / LATAM support.": ["Costa Rica / LATAM support.", "Costa Rica / Suporte para a América Latina."], "Define tu punto de partida": ["Define your starting point", "Defina seu ponto de partida"], "¿Qué necesita": ["What does your", "Do que sua"], "tu operación?": ["operation need?", "operação precisa?"], "Responde cuatro preguntas para obtener una orientación inicial y preparar una conversación con contexto.": ["Answer four questions to get initial guidance and prepare a conversation with context.", "Responda a quatro perguntas para obter uma orientação inicial e preparar uma conversa com contexto."], "No requiere acceso a tus sistemas.": ["No access to your systems is required.", "Não requer acesso aos seus sistemas."], "No subas información confidencial.": ["Do not upload confidential information.", "Não envie informações confidenciais."], "Las respuestas permanecen en esta página hasta que tú decidas exportarlas o incluirlas en un correo.": ["Your answers remain on this page until you choose to export them or include them in an email.", "Suas respostas permanecem nesta página até que você decida exportá-las ou incluí-las em um e-mail."], "El resultado es orientativo. El alcance se confirma en una conversación y revisión posterior.": ["The result is initial guidance. Scope is confirmed through a conversation and subsequent review.", "O resultado é orientativo. O escopo é confirmado em uma conversa e revisão posterior."], "1. ¿Cuál es la prioridad?": ["1. What is the priority?", "1. Qual é a prioridade?"], "Selecciona una opción": ["Select an option", "Selecione uma opção"], "ERP y reportes no coinciden": ["ERP and reports disagree", "ERP e relatórios não coincidem"], "Crear o mejorar dashboards": ["Create or improve dashboards", "Criar ou melhorar dashboards"], "Revisar procesos y controles P2P / GR/IR": ["Review P2P / GR/IR processes and controls", "Revisar processos e controles P2P / GR/IR"], "Validar un cambio o lanzamiento ERP": ["Validate an ERP change or release", "Validar uma mudança ou implantação ERP"], "2. Sistema principal": ["2. Main system", "2. Sistema principal"], "Selecciona": ["Select", "Selecione"], "Varios sistemas": ["Multiple systems", "Vários sistemas"], "Otro / por definir": ["Other / to be defined", "Outro / a definir"], "3. Acceso a datos": ["3. Data access", "3. Acesso aos dados"], "Extractos o consultas disponibles": ["Extracts or queries available", "Extrações ou consultas disponíveis"], "Acceso parcial / principalmente Excel": ["Partial access / mainly Excel", "Acesso parcial / principalmente Excel"], "Todavía no está definido": ["Not yet defined", "Ainda não definido"], "4. Horizonte de la necesidad": ["4. Time horizon", "4. Horizonte da necessidade"], "Necesidad actual / urgente": ["Current / urgent need", "Necessidade atual / urgente"], "Próximos 1–3 meses": ["Next 1–3 months", "Próximos 1–3 meses"], "Exploración sin fecha definida": ["Exploring without a set date", "Exploração sem data definida"], "Ver orientación inicial": ["View initial guidance", "Ver orientação inicial"], "Llevar al contacto": ["Use in contact form", "Levar ao contato"], "Descargar resumen": ["Download summary", "Baixar resumo"], "Antes de empezar": ["Before getting started", "Antes de começar"], "Preguntas": ["Frequently asked", "Perguntas"], "frecuentes.": ["questions.", "frequentes."], "¿Es necesario cambiar de ERP?": ["Do we need to replace our ERP?", "É necessário trocar de ERP?"], "No siempre. Primero se revisa si el problema está en procesos, calidad de datos, configuración, integraciones o reportes. Una sustitución requiere un análisis de alcance, alternativas, costo y riesgo.": ["Not always. We first review whether the issue involves processes, data quality, configuration, integrations or reports. Replacement requires an assessment of scope, alternatives, cost and risk.", "Nem sempre. Primeiro avaliamos se o problema está em processos, qualidade dos dados, configuração, integrações ou relatórios. Uma substituição exige análise de escopo, alternativas, custo e risco."], "¿Puedo contratar solo una validación o un dashboard?": ["Can I engage you for just a validation or dashboard?", "Posso contratar apenas uma validação ou um dashboard?"], "La propuesta contempla trabajos acotados por necesidad. Se acuerdan fuentes, entregables, criterios de aceptación y responsabilidades antes de iniciar.": ["The offering includes focused engagements based on need. Sources, deliverables, acceptance criteria and responsibilities are agreed before starting.", "A proposta contempla trabalhos específicos conforme a necessidade. Fontes, entregáveis, critérios de aceitação e responsabilidades são acordados antes do início."], "¿Cómo se define el precio y la duración?": ["How are price and duration determined?", "Como são definidos o preço e a duração?"], "Después de revisar la complejidad, los sistemas, disponibilidad de información, volumen, participación del cliente y especialistas requeridos. Esta demo no establece tarifas ni plazos contractuales.": ["After reviewing complexity, systems, information availability, volume, client participation and required specialists. This demo does not establish fees or contractual timelines.", "Após revisar complexidade, sistemas, disponibilidade de informações, volume, participação do cliente e especialistas necessários. Esta demo não estabelece honorários nem prazos contratuais."], "¿Quién aprueba el lanzamiento o el resultado?": ["Who approves the release or result?", "Quem aprova a implantação ou o resultado?"], "El responsable autorizado por el cliente. La consultoría aporta validaciones, evidencia y una recomendación, pero no reemplaza la decisión formal del negocio.": ["The client's authorized owner. The advisory team provides validations, evidence and a recommendation, but does not replace the formal business decision.", "O responsável autorizado pelo cliente. A consultoria fornece validações, evidências e uma recomendação, mas não substitui a decisão formal do negócio."], "¿Cómo se manejaría la información de mi empresa?": ["How would my company's information be handled?", "Como seriam tratadas as informações da minha empresa?"], "Empecemos con una conversación": ["Let's start a conversation", "Vamos começar com uma conversa"], "Cuéntanos dónde": ["Tell us where", "Conte-nos onde"], "se rompe la confianza": ["trust breaks down", "a confiança se perde"], "en tus datos.": ["in your data.", "nos seus dados."], "Un objetivo concreto, los sistemas involucrados y la principal dificultad son suficientes para iniciar.": ["A concrete objective, the systems involved and the main difficulty are enough to get started.", "Um objetivo concreto, os sistemas envolvidos e a principal dificuldade são suficientes para começar."], "Correo": ["Email", "E-mail"], "Ubicación": ["Location", "Localização"], "Costa Rica / LATAM support": ["Costa Rica / LATAM support", "Costa Rica / Suporte para a América Latina"], "Contacto profesional": ["Professional contact", "Contato profissional"], "Aaron Carvajal en LinkedIn ↗": ["Aaron Carvajal on LinkedIn ↗", "Aaron Carvajal no LinkedIn ↗"], "Nombre *": ["Name *", "Nome *"], "Correo *": ["Email *", "E-mail *"], "Empresa": ["Company", "Empresa"], "¿Qué necesitas revisar? *": ["What would you like to review? *", "O que você precisa revisar? *"], "Tu borrador está listo para revisar": ["Your draft is ready for review", "Seu rascunho está pronto para revisão"], "Abrir aplicación de correo": ["Open email application", "Abrir aplicativo de e-mail"], "Copiar borrador": ["Copy draft", "Copiar rascunho"], "© 2026 · Demo de sitio corporativo": ["© 2026 · Corporate website demo", "© 2026 · Demo de site corporativo"], "Volver al inicio ↑": ["Back to top ↑", "Voltar ao início ↑"], "· Sin publicación ni recepción de formularios": ["· Not published; no form submission", "· Sem publicação nem recebimento de formulários"], "Volver a la conciliación": ["Back to reconciliation", "Voltar à conciliação"], "Idioma": ["Language", "Idioma"], "Principal": ["Main navigation", "Navegação principal"], "Carvajal Bemfica, inicio": ["Carvajal Bemfica, home", "Carvajal Bemfica, início"], "Vista ilustrativa de conciliación": ["Illustrative reconciliation view", "Visualização ilustrativa de conciliação"], "Cerrar detalle": ["Close details", "Fechar detalhes"], "Ejemplo: nuestro dashboard de compras no coincide con SAP. Necesitamos identificar las diferencias y validar el reporte.": ["Example: our procurement dashboard does not match SAP. We need to identify the discrepancies and validate the report.", "Exemplo: nosso dashboard de compras não coincide com o SAP. Precisamos identificar as divergências e validar o relatório."], "Carvajal Bemfica | Finanzas, datos y ERP": ["Carvajal Bemfica | Finance, data and ERP", "Carvajal Bemfica | Finanças, dados e ERP"], "Demo de Carvajal Bemfica Finance & Data Advisory. Validación ERP, Power BI, SQL, controles P2P y pruebas UAT/SIT desde Costa Rica para LATAM.": ["Carvajal Bemfica Finance & Data Advisory demo. ERP validation, Power BI, SQL, P2P controls and UAT/SIT testing from Costa Rica for LATAM.", "Demo da Carvajal Bemfica Finance & Data Advisory. Validação ERP, Power BI, SQL, controles P2P e testes UAT/SIT a partir da Costa Rica para a América Latina."], "Proveedor Alfa": ["Supplier Alpha", "Fornecedor Alfa"], "Proveedor Beta": ["Supplier Beta", "Fornecedor Beta"], "Proveedor Gamma": ["Supplier Gamma", "Fornecedor Gama"], "Proveedor Delta": ["Supplier Delta", "Fornecedor Delta"], "Proveedor Épsilon": ["Supplier Epsilon", "Fornecedor Épsilon"], "Proveedor Zeta": ["Supplier Zeta", "Fornecedor Zeta"], "Proveedor Eta": ["Supplier Eta", "Fornecedor Eta"], "Proveedor Theta": ["Supplier Theta", "Fornecedor Teta"], "La transacción y el reporte coinciden en el corte del ejemplo.": ["The transaction and report match at the example cutoff.", "A transação e o relatório coincidem na data de corte do exemplo."], "Conservar la evidencia de conciliación.": ["Keep the reconciliation evidence.", "Conservar as evidências de conciliação."], "Diferencia de +USD 500. Hipótesis ilustrativa: una relación uno-a-muchos incrementó el importe del reporte.": ["Variance of +USD 500. Illustrative hypothesis: a one-to-many relationship increased the report amount.", "Divergência de +USD 500. Hipótese ilustrativa: uma relação um-para-muitos aumentou o valor do relatório."], "Revisar la cardinalidad del join, confirmar la llave y volver a conciliar.": ["Review join cardinality, confirm the key and reconcile again.", "Revisar a cardinalidade do join, confirmar a chave e conciliar novamente."], "Diferencia de −USD 200. Hipótesis ilustrativa: una nota de crédito quedó fuera del mismo corte.": ["Variance of −USD 200. Illustrative hypothesis: a credit note fell outside the same cutoff.", "Divergência de −USD 200. Hipótese ilustrativa: uma nota de crédito ficou fora da mesma data de corte."], "Alinear las fechas de contabilización y el tratamiento de notas de crédito.": ["Align posting dates and credit-note treatment.", "Alinhar as datas de contabilização e o tratamento de notas de crédito."], "El saldo coincide con la fuente acordada en este ejemplo.": ["The balance matches the agreed source in this example.", "O saldo coincide com a fonte acordada neste exemplo."], "Documentar fuente, corte y reglas aplicadas.": ["Document the source, cutoff and rules applied.", "Documentar a fonte, a data de corte e as regras aplicadas."], "No se identifican diferencias de importe en este registro del ejemplo.": ["No amount discrepancies were identified for this example record.", "Não foram identificadas divergências de valor neste registro do exemplo."], "Conservar el detalle de validación.": ["Keep the validation details.", "Conservar o detalhe da validação."], "La transacción concilia en el corte ilustrativo.": ["The transaction reconciles at the illustrative cutoff.", "A transação está conciliada na data de corte ilustrativa."], "Mantener la evidencia de comparación.": ["Keep the comparison evidence.", "Manter as evidências de comparação."], "Diferencia de −USD 300. Hipótesis ilustrativa: una línea fue excluida por una regla de clasificación.": ["Variance of −USD 300. Illustrative hypothesis: a line was excluded by a classification rule.", "Divergência de −USD 300. Hipótese ilustrativa: uma linha foi excluída por uma regra de classificação."], "Confirmar con negocio la regla de exclusión y su implementación.": ["Confirm the exclusion rule and its implementation with business owners.", "Confirmar com o negócio a regra de exclusão e sua implementação."], "USD 320 en el reporte sin importe esperado. Hipótesis ilustrativa: registro duplicado o fuera de alcance.": ["USD 320 appears in the report with no expected amount. Illustrative hypothesis: a duplicate or out-of-scope record.", "USD 320 no relatório sem valor esperado. Hipótese ilustrativa: registro duplicado ou fora do escopo."], "Revisar la llave única y el período antes de ajustar el reporte.": ["Review the unique key and period before adjusting the report.", "Revisar a chave única e o período antes de ajustar o relatório."], "Conciliado": ["Reconciled", "Conciliado"], "Crítica": ["Critical", "Crítica"], "Revisar": ["Review", "Revisar"], "Diferencia crítica": ["Critical discrepancy", "Divergência crítica"], "Observación": ["Observation", "Observação"], "No hay diferencias para el filtro seleccionado.": ["No discrepancies for the selected filter.", "Não há divergências para o filtro selecionado."], "GO con observaciones": ["GO with observations", "GO com observações"], "escenario completo": ["full scenario", "cenário completo"], "{open} diferencias abiertas; {critical} críticas. Variación neta total: {amount}. Las compensaciones entre diferencias no prueban conciliación.": ["{open} open discrepancies; {critical} critical. Total net variance: {amount}. Offsetting discrepancies do not prove reconciliation.", "{open} divergências abertas; {critical} críticas. Variação líquida total: {amount}. Compensações entre divergências não comprovam conciliação."], "Correcciones simuladas: los 8 registros coinciden. En un proyecto real, se requerirían retesting y aprobación del responsable.": ["Simulated corrections: all 8 records match. A real project would require retesting and owner approval.", "Correções simuladas: os 8 registros coincidem. Em um projeto real, seriam necessários novos testes e aprovação do responsável."], "Restablecer ejemplo": ["Reset example", "Restaurar exemplo"], "Importe ajustado al esperado en la simulación. Este cambio no modifica ningún sistema real.": ["Amount adjusted to the expected value in the simulation. This change does not modify any real system.", "Valor ajustado ao esperado na simulação. Esta mudança não altera nenhum sistema real."], "Siguiente paso:": ["Next step:", "Próximo passo:"], "comprobar evidencia y criterios de aceptación antes de aprobar.": ["verify evidence and acceptance criteria before approval.", "verificar as evidências e os critérios de aceitação antes de aprovar."], "Conciliación y diagnóstico de datos": ["Data reconciliation and diagnosis", "Conciliação e diagnóstico de dados"], "Empezar por una comparación acordada entre la fuente ERP y el reporte para aislar las diferencias.": ["Start with an agreed ERP-source-to-report comparison to isolate discrepancies.", "Começar com uma comparação acordada entre a fonte ERP e o relatório para isolar as divergências."], "Definir corte, moneda, llaves y alcance.": ["Define cutoff, currency, keys and scope.", "Definir data de corte, moeda, chaves e escopo."], "Revisar joins, duplicados, filtros y mapeos.": ["Review joins, duplicates, filters and mappings.", "Revisar joins, duplicidades, filtros e mapeamentos."], "Documentar excepciones y criterio de resolución.": ["Document exceptions and resolution criteria.", "Documentar exceções e critérios de resolução."], "Definición de KPI y prototipo Power BI": ["KPI definition and Power BI prototype", "Definição de KPIs e protótipo Power BI"], "Acordar las preguntas de negocio y las reglas de cálculo antes de construir o modificar las vistas.": ["Agree on business questions and calculation rules before building or modifying views.", "Acordar as perguntas de negócio e as regras de cálculo antes de construir ou modificar as visualizações."], "Identificar usuarios, decisiones y KPI.": ["Identify users, decisions and KPIs.", "Identificar usuários, decisões e KPIs."], "Revisar fuentes, calidad y actualización de datos.": ["Review data sources, quality and refresh processes.", "Revisar fontes, qualidade e atualização dos dados."], "Validar el prototipo contra la fuente acordada.": ["Validate the prototype against the agreed source.", "Validar o protótipo com a fonte acordada."], "Revisión funcional P2P / GR/IR": ["P2P / GR/IR functional review", "Revisão funcional P2P / GR/IR"], "Mapear el proceso y las excepciones para identificar dónde se requieren controles o seguimiento.": ["Map the process and exceptions to identify where controls or follow-up are needed.", "Mapear o processo e as exceções para identificar onde são necessários controles ou acompanhamento."], "Documentar compras, recepciones, facturas y responsables.": ["Document purchasing, receipts, invoices and owners.", "Documentar compras, recebimentos, faturas e responsáveis."], "Revisar conciliaciones y partidas abiertas.": ["Review reconciliations and open items.", "Revisar conciliações e itens em aberto."], "Priorizar acciones y evidencias de control.": ["Prioritize actions and control evidence.", "Priorizar ações e evidências de controle."], "Preparación de UAT / SIT": ["UAT / SIT preparation", "Preparação de UAT / SIT"], "Convertir el alcance del cambio en escenarios verificables y condiciones de aceptación.": ["Turn the scope of change into verifiable scenarios and acceptance conditions.", "Transformar o escopo da mudança em cenários verificáveis e condições de aceitação."], "Confirmar requisitos, ambientes y datos de prueba.": ["Confirm requirements, environments and test data.", "Confirmar requisitos, ambientes e dados de teste."], "Definir scripts, prioridades y responsables.": ["Define test scripts, priorities and owners.", "Definir roteiros de teste, prioridades e responsáveis."], "Registrar defectos, retesting y recomendación de liberación.": ["Record defects, retesting and a release recommendation.", "Registrar defeitos, novos testes e recomendação de liberação."], "Primero acordar disponibilidad, responsables y acceso autorizado a datos.": ["First agree on availability, owners and authorized data access.", "Primeiro acordar disponibilidade, responsáveis e acesso autorizado aos dados."], "Carvajal Bemfica · Orientación inicial": ["Carvajal Bemfica · Initial guidance", "Carvajal Bemfica · Orientação inicial"], "Resultado orientativo; no constituye propuesta contractual.": ["Initial guidance; not a contractual proposal.", "Resultado orientativo; não constitui proposta contratual."], "Prioridad:": ["Priority:", "Prioridade:"], "Sistema:": ["System:", "Sistema:"], "Acceso:": ["Access:", "Acesso:"], "Horizonte:": ["Time horizon:", "Horizonte:"], "Ruta sugerida:": ["Suggested approach:", "Rota sugerida:"], "Hola Aaron,": ["Hello Aaron,", "Olá Aaron,"], "Quisiera conversar sobre una necesidad de consultoría.": ["I would like to discuss a consulting need.", "Gostaria de conversar sobre uma necessidade de consultoria."], "Nombre:": ["Name:", "Nome:"], "Correo:": ["Email:", "E-mail:"], "Empresa:": ["Company:", "Empresa:"], "No indicada": ["Not specified", "Não informada"], "Saludos,": ["Best regards,", "Atenciosamente,"], "Escribe el nombre y una descripción de tu necesidad.": ["Enter your name and a description of your needs.", "Informe seu nome e uma descrição da sua necessidade."], "Consulta de servicios · Carvajal Bemfica": ["Service inquiry · Carvajal Bemfica", "Consulta de serviços · Carvajal Bemfica"], "Revisa el borrador antes de enviarlo desde tu correo.": ["Review the draft before sending it from your email application.", "Revise o rascunho antes de enviá-lo pelo seu aplicativo de e-mail."], "Borrador copiado.": ["Draft copied.", "Rascunho copiado."], "La copia automática no está disponible. Selecciona el borrador y cópialo manualmente.": ["Automatic copying is unavailable. Select the draft and copy it manually.", "A cópia automática não está disponível. Selecione o rascunho e copie manualmente."], "registro": ["record", "registro"], "proveedor": ["supplier", "fornecedor"], "esperado_usd": ["expected_usd", "esperado_usd"], "real_usd": ["actual_usd", "real_usd"], "variacion_usd": ["variance_usd", "variacao_usd"], "estado": ["status", "status"], "datos_ficticios": ["fictional_data", "dados_ficticios"], "SI": ["YES", "SIM"], "Idioma cambiado a español.": ["Language changed to English.", "Idioma alterado para português."], "DEMO · Los datos de conciliación son ficticios. El formulario utiliza envío directo.": ["DEMO · Reconciliation data is fictional. The contact form uses direct submission.", "DEMO · Os dados de conciliação são fictícios. O formulário utiliza envio direto."], "Enviar mensaje": ["Send message", "Enviar mensagem"], "Tu consulta se enviará mediante FormSubmit. No incluyas información confidencial.": ["Your inquiry will be submitted through FormSubmit. Do not include confidential information.", "Sua consulta será enviada pelo FormSubmit. Não inclua informações confidenciais."], "Los accesos y la confidencialidad se acuerdan antes de trabajar con datos reales. La muestra no conecta a ERPs ni recibe archivos. El formulario utiliza un servicio externo para remitir tu consulta.": ["Access and confidentiality are agreed before working with real data. This sample does not connect to ERPs or accept files. The form uses an external service to forward your inquiry.", "Acessos e confidencialidade são acordados antes de trabalhar com dados reais. A amostra não conecta a ERPs nem recebe arquivos. O formulário utiliza um serviço externo para encaminhar sua consulta."], "· Finanzas, datos y ERP": ["· Finance, data and ERP", "· Finanças, dados e ERP"], "Completa tu nombre, correo y descripción de la necesidad.": ["Enter your name, email and a description of your needs.", "Informe seu nome, e-mail e uma descrição da necessidade."], "Para enviar el mensaje, abre esta página desde su dirección web. El archivo local permite revisar el diseño.": ["To send a message, open this page at its web address. The local file lets you review the design.", "Para enviar a mensagem, abra esta página pelo endereço web. O arquivo local permite revisar o design."], "Enviando…": ["Sending…", "Enviando…"], "Enviando tu consulta…": ["Sending your inquiry…", "Enviando sua consulta…"], "El formulario está pendiente de habilitación. Intenta más tarde; el envío aún no está confirmado.": ["The form is not yet enabled. Please try later; submission has not been confirmed.", "O formulário ainda não está habilitado. Tente mais tarde; o envio ainda não foi confirmado."], "Tu consulta fue aceptada por el servicio de envío. Gracias por contactarnos.": ["Your inquiry was accepted by the submission service. Thank you for contacting us.", "Sua consulta foi aceita pelo serviço de envio. Obrigado por entrar em contato."], "La solicitud tardó demasiado. No pudimos confirmar el envío. Conservamos tus datos para que lo intentes nuevamente.": ["The request timed out. We could not confirm submission. Your details remain in the form so you can try again.", "A solicitação demorou demais. Não foi possível confirmar o envio. Seus dados permanecem no formulário para que você tente novamente."], "No pudimos confirmar el envío. Revisa tu conexión e intenta nuevamente. Tus datos siguen en el formulario.": ["We could not confirm submission. Check your connection and try again. Your details remain in the form.", "Não foi possível confirmar o envio. Verifique sua conexão e tente novamente. Seus dados permanecem no formulário."], "Consulta de servicios": ["Service inquiry", "Consulta de serviços"] };
+    const locales = { es: 'es-CR', en: 'en-US', pt: 'pt-BR' };
+    function t(text, vars = {}) { const pair = translations[text]; let result = language === 'es' || !pair ? text : pair[language === 'en' ? 0 : 1]; return result.replace(/\{(\w+)\}/g, (m, k) => vars[k] ?? m); }
+    const money = n => new Intl.NumberFormat(locales[language], { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+    // Freeze machine values before translating option labels.
+    document.querySelectorAll('select option').forEach(option => { if (!option.hasAttribute('value')) option.setAttribute('value', option.textContent); });
+    const staticNodes = []; const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) { const node = walker.currentNode; if (!node.parentElement.closest('script,style')) { const original = node.nodeValue, key = original.trim(); if (translations[key]) staticNodes.push({ node, original, key }); } }
+    const attributeNodes = []; document.querySelectorAll('[aria-label],[placeholder]').forEach(el => { for (const attr of ['aria-label', 'placeholder']) { const original = el.getAttribute(attr); if (original && translations[original]) attributeNodes.push({ el, attr, original }); } });
+    const originalTitle = document.title, description = document.querySelector('meta[name="description"]'), originalDescription = description.content;
+    const sample = [
+      { id: 'INV-001', erp: 'SAP', supplier: 'Proveedor Alfa', expected: 12000, actual: 12000, critical: false, note: 'La transacción y el reporte coinciden en el corte del ejemplo.', action: 'Conservar la evidencia de conciliación.' },
+      { id: 'INV-002', erp: 'SAP', supplier: 'Proveedor Beta', expected: 8500, actual: 9000, critical: true, note: 'Diferencia de +USD 500. Hipótesis ilustrativa: una relación uno-a-muchos incrementó el importe del reporte.', action: 'Revisar la cardinalidad del join, confirmar la llave y volver a conciliar.' },
+      { id: 'INV-003', erp: 'Oracle', supplier: 'Proveedor Gamma', expected: 6400, actual: 6200, critical: false, note: 'Diferencia de −USD 200. Hipótesis ilustrativa: una nota de crédito quedó fuera del mismo corte.', action: 'Alinear las fechas de contabilización y el tratamiento de notas de crédito.' },
+      { id: 'INV-004', erp: 'JDE', supplier: 'Proveedor Delta', expected: 15000, actual: 15000, critical: false, note: 'El saldo coincide con la fuente acordada en este ejemplo.', action: 'Documentar fuente, corte y reglas aplicadas.' },
+      { id: 'INV-005', erp: 'Oracle', supplier: 'Proveedor Épsilon', expected: 4300, actual: 4300, critical: false, note: 'No se identifican diferencias de importe en este registro del ejemplo.', action: 'Conservar el detalle de validación.' },
+      { id: 'INV-006', erp: 'JDE', supplier: 'Proveedor Zeta', expected: 2800, actual: 2800, critical: false, note: 'La transacción concilia en el corte ilustrativo.', action: 'Mantener la evidencia de comparación.' },
+      { id: 'INV-007', erp: 'SAP', supplier: 'Proveedor Eta', expected: 7300, actual: 7000, critical: false, note: 'Diferencia de −USD 300. Hipótesis ilustrativa: una línea fue excluida por una regla de clasificación.', action: 'Confirmar con negocio la regla de exclusión y su implementación.' },
+      { id: 'INV-008', erp: 'JDE', supplier: 'Proveedor Theta', expected: 0, actual: 320, critical: true, note: 'USD 320 en el reporte sin importe esperado. Hipótesis ilustrativa: registro duplicado o fuera de alcance.', action: 'Revisar la llave única y el período antes de ajustar el reporte.' }
+    ];
+    const routes = { reconcile: { title: 'Conciliación y diagnóstico de datos', text: 'Empezar por una comparación acordada entre la fuente ERP y el reporte para aislar las diferencias.', items: ['Definir corte, moneda, llaves y alcance.', 'Revisar joins, duplicados, filtros y mapeos.', 'Documentar excepciones y criterio de resolución.'] }, reporting: { title: 'Definición de KPI y prototipo Power BI', text: 'Acordar las preguntas de negocio y las reglas de cálculo antes de construir o modificar las vistas.', items: ['Identificar usuarios, decisiones y KPI.', 'Revisar fuentes, calidad y actualización de datos.', 'Validar el prototipo contra la fuente acordada.'] }, controls: { title: 'Revisión funcional P2P / GR/IR', text: 'Mapear el proceso y las excepciones para identificar dónde se requieren controles o seguimiento.', items: ['Documentar compras, recepciones, facturas y responsables.', 'Revisar conciliaciones y partidas abiertas.', 'Priorizar acciones y evidencias de control.'] }, testing: { title: 'Preparación de UAT / SIT', text: 'Convertir el alcance del cambio en escenarios verificables y condiciones de aceptación.', items: ['Confirmar requisitos, ambientes y datos de prueba.', 'Definir scripts, prioridades y responsables.', 'Registrar defectos, retesting y recomendación de liberación.'] } };
+    function activeRows() { return sample.map(r => ({ ...r, actual: resolved ? r.expected : r.actual })); }
+    function renderDemo() {
+      const all = activeRows(), rows = all.filter(r => ($('erpFilter').value === 'all' || r.erp === $('erpFilter').value) && (!$('onlyExceptions').checked || r.actual !== r.expected)), expected = rows.reduce((a, r) => a + r.expected, 0), actual = rows.reduce((a, r) => a + r.actual, 0); $('expectedMetric').textContent = money(expected); $('actualMetric').textContent = money(actual); $('varianceMetric').textContent = money(actual - expected); $('exceptionsMetric').textContent = rows.filter(r => r.actual !== r.expected).length + ' / ' + rows.length;
+      $('demoRows').replaceChildren(); rows.forEach(r => { const tr = document.createElement('tr'), td = document.createElement('td'), button = document.createElement('button'); button.type = 'button'; button.className = 'row-link'; button.textContent = r.id + ' / ' + r.erp; button.addEventListener('click', () => showRecord(r)); td.append(button); tr.append(td);[t(r.supplier), money(r.expected), money(r.actual), money(r.actual - r.expected)].forEach((v, i) => { const cell = document.createElement('td'); cell.textContent = v; if (i > 0) cell.className = 'num'; tr.append(cell); }); const state = document.createElement('td'), badge = document.createElement('span'); badge.className = 'badge ' + (r.actual === r.expected ? 'good' : r.critical ? 'bad' : 'warn'); badge.textContent = t(r.actual === r.expected ? 'Conciliado' : r.critical ? 'Crítica' : 'Revisar'); state.append(badge); tr.append(state); $('demoRows').append(tr); }); if (!rows.length) { const tr = document.createElement('tr'), td = document.createElement('td'); td.colSpan = 6; td.textContent = t('No hay diferencias para el filtro seleccionado.'); tr.append(td); $('demoRows').append(tr); }
+      const open = all.filter(r => r.actual !== r.expected), critical = open.filter(r => r.critical).length, status = critical ? 'NO-GO' : open.length ? t('GO con observaciones') : 'GO'; $('verdict').textContent = status + ' · ' + t('escenario completo'); $('verdict').className = 'badge ' + (critical ? 'bad' : open.length ? 'warn' : 'good'); $('verdictNote').textContent = open.length ? t('{open} diferencias abiertas; {critical} críticas. Variación neta total: {amount}. Las compensaciones entre diferencias no prueban conciliación.', { open: open.length, critical, amount: money(all.reduce((a, r) => a + r.actual - r.expected, 0)) }) : t('Correcciones simuladas: los 8 registros coinciden. En un proyecto real, se requerirían retesting y aprobación del responsable.'); $('resolveButton').textContent = t(resolved ? 'Restablecer ejemplo' : 'Simular correcciones');
+    }
+    function renderRecord(r) { $('recordBadge').textContent = t(r.actual === r.expected ? 'Conciliado' : r.critical ? 'Diferencia crítica' : 'Observación'); $('recordTitle').textContent = r.id + ' · ' + r.erp + ' · ' + t(r.supplier); $('recordText').textContent = t(resolved ? 'Importe ajustado al esperado en la simulación. Este cambio no modifica ningún sistema real.' : r.note); $('recordAction').textContent = t('Siguiente paso:') + ' ' + t(resolved ? 'comprobar evidencia y criterios de aceptación antes de aprobar.' : r.action); }
+    function showRecord(r) { openRecordId = r.id; renderRecord(r); $('recordDialog').showModal(); }
+    function download(name, text, type = 'text/plain;charset=utf-8') { const url = URL.createObjectURL(new Blob([text], { type })), a = document.createElement('a'); a.href = url; a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
+    $('erpFilter').addEventListener('change', renderDemo); $('onlyExceptions').addEventListener('change', renderDemo); $('resolveButton').addEventListener('click', () => { resolved = !resolved; renderDemo(); });
+    $('exportCsv').addEventListener('click', () => { const quote = v => '"' + String(v).replaceAll('"', '""') + '"', rows = activeRows().filter(r => ($('erpFilter').value === 'all' || r.erp === $('erpFilter').value) && (!$('onlyExceptions').checked || r.actual !== r.expected)); download('CB_Demo_' + language + '.csv', '\uFEFF' + [['registro', 'erp', 'proveedor', 'esperado_usd', 'real_usd', 'variacion_usd', 'estado', 'datos_ficticios'].map(t => globalTranslate(t)), ...rows.map(r => [r.id, r.erp, t(r.supplier), r.expected, r.actual, r.actual - r.expected, t(r.actual === r.expected ? 'Conciliado' : r.critical ? 'Crítica' : 'Revisar'), t('SI')])].map(row => row.map(quote).join(',')).join('\r\n'), 'text/csv;charset=utf-8'); });
+    function globalTranslate(key) { return t(key); }
+    ['closeDialog', 'doneDialog'].forEach(id => $(id).addEventListener('click', () => $('recordDialog').close())); $('recordDialog').addEventListener('close', () => { openRecordId = null; }); $('recordDialog').addEventListener('click', e => { if (e.target === $('recordDialog')) { const b = $('recordDialog').getBoundingClientRect(); if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) $('recordDialog').close(); } });
+    function renderDiagnostic() { if (!diagnostic) return; $('resultTitle').textContent = t(diagnostic.title); $('resultText').textContent = t(diagnostic.text); $('resultList').replaceChildren(...diagnostic.items.map(text => { const li = document.createElement('li'); li.textContent = t(text); return li; })); $('diagnosticResult').hidden = false; }
+    function diagnosticText() { return [t('Carvajal Bemfica · Orientación inicial'), t('Resultado orientativo; no constituye propuesta contractual.'), t('Prioridad:') + ' ' + $('challenge').selectedOptions[0].textContent, t('Sistema:') + ' ' + t(diagnostic.system), t('Acceso:') + ' ' + $('dataReady').selectedOptions[0].textContent, t('Horizonte:') + ' ' + t(diagnostic.timing), t('Ruta sugerida:') + ' ' + t(diagnostic.title), t(diagnostic.text), ...diagnostic.items.map(text => '• ' + t(text))].join('\n'); }
+    $('diagnosticForm').addEventListener('submit', e => { e.preventDefault(); const route = routes[$('challenge').value]; diagnostic = { ...route, items: [...route.items], system: $('system').value, timing: $('timing').value }; if ($('dataReady').value !== 'yes') diagnostic.items.unshift('Primero acordar disponibilidad, responsables y acceso autorizado a datos.'); renderDiagnostic(); });
+    // Answers invalidate prior guidance. A language change does not change the answers.
+    $('diagnosticForm').addEventListener('change', () => { diagnostic = null; $('diagnosticResult').hidden = true; });
+    $('useDiagnostic').addEventListener('click', () => { if (!diagnostic) return; generatedMessage = diagnosticText(); $('message').value = generatedMessage; contactStatusKey = ''; $('contactStatus').hidden = true; $('contacto').scrollIntoView({ behavior: 'smooth' }); $('name').focus({ preventScroll: true }); }); $('exportDiagnostic').addEventListener('click', () => { if (diagnostic) download('CB_Initial_Guidance_' + language + '.txt', diagnosticText()); });
+    // FormSubmit requires owner activation and an HTTP(S) page. No browser credentials.
+    const CONTACT_ENDPOINT = 'https://formsubmit.co/ajax/aanohel@gmail.com';
+    function showContactStatus(key, kind = 'info') { contactStatusKey = key; contactStatusKind = kind; $('contactStatus').textContent = t(key); $('contactStatus').className = 'contact-status ' + kind; $('contactStatus').hidden = false; }
+    async function sendContact() {
+      if (pendingSend) return;
+      const name = $('name').value.trim(), email = $('email').value.trim(), message = $('message').value.trim();
+      if (!name || !email || !message) { $('message').setCustomValidity(t('Completa tu nombre, correo y descripción de la necesidad.')); $('contactForm').reportValidity(); return; }
+      if (!$('contactForm').reportValidity()) return;
+      if (!/^https?:$/.test(window.location.protocol)) { showContactStatus('Para enviar el mensaje, abre esta página desde su dirección web. El archivo local permite revisar el diseño.', 'info'); return; }
+      if ($('website').value) return;
+      pendingSend = true; $('submitContact').disabled = true; $('submitContact').textContent = t('Enviando…'); showContactStatus('Enviando tu consulta…', 'info');
+      const controller = new AbortController(), timer = setTimeout(() => controller.abort(), 20000);
+      const payload = { name, email, company: $('company').value.trim(), message, language, _subject: 'Carvajal Bemfica · ' + t('Consulta de servicios'), _replyto: email, _template: 'table', _honey: $('website').value, _url: window.location.href };
+      try {
+        const response = await fetch(CONTACT_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload), signal: controller.signal });
+        const data = await response.json();
+        if (/activat|confirm.*email/i.test(String(data.message || ''))) { showContactStatus('El formulario está pendiente de habilitación. Intenta más tarde; el envío aún no está confirmado.', 'warning'); return; }
+        if (!response.ok || !(data.success === true || data.success === 'true')) throw new Error('Submission not accepted');
+        showContactStatus('Tu consulta fue aceptada por el servicio de envío. Gracias por contactarnos.', 'success');
+      } catch (error) {
+        showContactStatus(error.name === 'AbortError' ? 'La solicitud tardó demasiado. No pudimos confirmar el envío. Conservamos tus datos para que lo intentes nuevamente.' : 'No pudimos confirmar el envío. Revisa tu conexión e intenta nuevamente. Tus datos siguen en el formulario.', 'error');
+      } finally { clearTimeout(timer); pendingSend = false; $('submitContact').disabled = false; $('submitContact').textContent = t('Enviar mensaje'); }
+    }
+    $('contactForm').addEventListener('submit', e => { e.preventDefault(); sendContact(); });
+    $('contactForm').addEventListener('input', () => { $('message').setCustomValidity(''); if (!pendingSend) { contactStatusKey = ''; $('contactStatus').hidden = true; } });
+    function setLanguage(next) {
+      if (!locales[next]) return; language = next; $('languageSelect').value = next; document.documentElement.lang = next === 'pt' ? 'pt-BR' : next; staticNodes.forEach(({ node, original, key }) => { node.nodeValue = original.replace(key, t(key)); }); attributeNodes.forEach(({ el, attr, original }) => el.setAttribute(attr, t(original))); document.title = t(originalTitle); description.content = t(originalDescription); renderDemo(); renderDiagnostic();
+      if (generatedMessage !== null && $('message').value === generatedMessage && diagnostic) { generatedMessage = diagnosticText(); $('message').value = generatedMessage; }
+      if ($('recordDialog').open && openRecordId) renderRecord(activeRows().find(r => r.id === openRecordId));
+      $('message').setCustomValidity(''); if (contactStatusKey) showContactStatus(contactStatusKey, contactStatusKind); $('submitContact').textContent = t(pendingSend ? 'Enviando…' : 'Enviar mensaje'); $('languageStatus').textContent = t('Idioma cambiado a español.');
+    }
+    $('languageSelect').addEventListener('change', () => setLanguage($('languageSelect').value));
+
+    $('menuButton').addEventListener('click', () => { const open = $('nav').classList.toggle('open'); $('menuButton').setAttribute('aria-expanded', String(open)); }); document.querySelectorAll('#nav a').forEach(a => a.addEventListener('click', () => { $('nav').classList.remove('open'); $('menuButton').setAttribute('aria-expanded', 'false'); }));
+    setLanguage('es');
+
+  </script>
+</body>
+
+</html>
